@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VeilMate — Privacy Policy</title>
+<meta name="description" content="What VeilMate stores on your device, what it never collects, and the single situation in which it contacts a server.">
+<link rel="icon" href="icons/icon128.png">
+<style>
+:root{
+  --accent:#7c5cf5;
+  --accent-2:#4f46e5;
+  --bg:#f7f6fd;
+  --surface:#ffffff;
+  --ink:#1b1930;
+  --body:#4a4763;
+  --muted:#6f6b8c;
+  --line:#e6e4f2;
+  --tint:color-mix(in srgb, var(--accent) 8%, #ffffff);
+  --shadow:0 18px 45px -24px rgba(24,20,60,.35);
+  --shadow-soft:0 8px 24px -18px rgba(24,20,60,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{
+  margin:0;color:var(--body);
+  background:radial-gradient(900px 460px at 100% -8%, color-mix(in srgb, var(--accent-2) 12%, #ffffff) 0%, rgba(255,255,255,0) 70%), var(--bg);
+  font-family:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button,select{font:inherit}
+[hidden]{display:none !important}
+::selection{background:color-mix(in srgb, var(--accent) 22%, #ffffff);color:var(--ink)}
+:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 55%, #ffffff);outline-offset:3px}
+.wrap{width:min(1120px, calc(100% - 40px));margin:0 auto}
+
+.topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar-inner{display:flex;align-items:center;gap:18px;height:70px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:16px;font-weight:750;letter-spacing:-.015em;white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:9px;background:#fff;border:1px solid var(--line)}
+.nav-links{display:flex;align-items:center;gap:20px;margin-left:auto;font-size:13.5px;font-weight:650}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--accent);text-decoration:none}
+.top-actions{display:flex;align-items:center;gap:9px;margin-left:auto}
+.nav-links + .top-actions{margin-left:0}
+.lang{
+  appearance:none;-webkit-appearance:none;border:1px solid var(--line);background-color:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236f6b8c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;background-size:12px;
+  color:var(--ink);border-radius:10px;padding:9px 32px 9px 11px;font-size:13px;font-weight:600;cursor:pointer;max-width:150px;
+}
+.lang:hover{border-color:color-mix(in srgb, var(--accent) 26%, var(--line))}
+
+.policy-hero{padding:56px 0 8px}
+.policy-hero-card{padding:38px 42px;border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line));border-radius:26px;background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, #ffffff) 0%, #ffffff 62%, color-mix(in srgb, var(--accent-2) 12%, #ffffff) 100%);box-shadow:var(--shadow)}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid color-mix(in srgb, var(--accent) 22%, var(--line));background:color-mix(in srgb, var(--accent) 7%, #ffffff);color:var(--accent);font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.policy-hero h1{margin:15px 0 12px;color:var(--ink);font-size:clamp(28px,3.6vw,40px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+.policy-hero h1 .h1-sub{color:var(--muted);font-weight:700}
+.summary{max-width:760px;margin:0 0 16px;color:var(--body);font-size:15px;line-height:1.7}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chip{padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.8);color:var(--ink);font-size:12.5px;font-weight:650}
+.updated{display:inline-flex;align-items:center;gap:7px;margin:0;color:var(--muted);font-size:12.5px;font-weight:600}
+.updated svg{color:var(--accent)}
+
+.policy-layout{display:grid;grid-template-columns:236px minmax(0,1fr);gap:36px;padding:34px 0 56px;align-items:start}
+.toc{position:sticky;top:96px;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow-soft)}
+.toc-title{margin:0 0 10px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.toc nav{display:grid;gap:2px}
+.toc a{display:flex;gap:9px;padding:7px 8px;border-radius:9px;color:var(--body);font-size:13px;font-weight:600}
+.toc a:hover{background:var(--tint);color:var(--accent);text-decoration:none}
+.toc a span{color:var(--accent);font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.policy-card{margin:0 0 16px;padding:26px 28px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow-soft)}
+.policy-card h2{display:flex;align-items:center;gap:11px;margin:0 0 12px;color:var(--ink);font-size:19px;line-height:1.25;letter-spacing:-.02em;font-weight:780}
+.policy-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:9px;background:var(--tint);color:var(--accent);font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.policy-body p{margin:0 0 10px;color:var(--body);font-size:14.5px;line-height:1.72}
+.policy-body p:last-child{margin-bottom:0}
+.policy-body ul{margin:0 0 10px;padding-left:20px}
+.policy-body li{margin:4px 0;font-size:14.5px;line-height:1.7}
+.policy-body strong{color:var(--ink)}
+.policy-body code{padding:1px 5px;border-radius:5px;background:#f4f2fd;color:var(--ink);font-size:12.5px}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.policy-body table{width:100%;border-collapse:collapse;font-size:13.5px}
+.policy-body th,.policy-body td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.policy-body th{color:var(--muted);font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;background:#fbfaff}
+.policy-body tr:last-child td{border-bottom:none}
+.policy-body .box{margin:0 0 12px;padding:12px 16px;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;background:var(--tint);color:var(--body);font-size:14px}
+.policy-body .no-mark{list-style:none;margin-left:-20px}
+
+.site-footer{border-top:1px solid var(--line);background:rgba(255,255,255,.8);padding:32px 0}
+.footer-inner{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between}
+.footer-brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:14px;font-weight:700}
+.footer-brand img{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.footer-brand .copy{display:block;color:var(--muted);font-size:12px;font-weight:500;line-height:1.4;margin-top:1px}
+.footer-links{display:flex;flex-wrap:wrap;gap:9px 18px;align-items:center;font-size:13px;font-weight:600}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+
+@media (max-width:960px){
+  .policy-layout{grid-template-columns:1fr;gap:20px}
+  .toc{position:static}
+  .toc nav{grid-template-columns:1fr 1fr;gap:2px 12px}
+  .nav-links{display:none}
+  .topbar-inner{height:62px}
+}
+@media (max-width:640px){
+  .policy-hero{padding:34px 0 4px}
+  .policy-hero-card{padding:24px 20px;border-radius:20px}
+  .policy-card{padding:20px 18px}
+  .wrap{width:calc(100% - 32px)}
+  .toc nav{grid-template-columns:1fr}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important;animation:none !important}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html"><img src="icons/icon128.png" alt="" width="32" height="32"><span>VeilMate</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="index.html#features" id="p-nav-features">Features</a>
+      <a href="index.html#plans" id="p-nav-plans">Free &amp; Pro</a>
+      <a href="index.html#support" id="p-nav-support">Support</a>
+    </nav>
+    <div class="top-actions">
+      <select class="lang" id="p-lang" aria-label="Language"><option value="en">English</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="de">Deutsch</option><option value="es">Español</option><option value="fr">Français</option></select>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="policy-hero">
+    <div class="wrap">
+      <div class="policy-hero-card">
+        <span class="eyebrow" id="p-eyebrow">Privacy Policy</span>
+        <h1><span id="p-h1">VeilMate</span> <span class="h1-sub" id="p-h1-sub">Privacy Policy</span></h1>
+        <p class="summary" id="p-summary">VeilMate covers your browser so other people cannot see it. It collects nothing, transmits nothing and sells nothing. Your password never leaves the device and is never stored in readable form.</p>
+        <div class="chips" id="p-chips"></div>
+        <p class="updated"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="p-updated">Last updated: October 30, 2026</span></p>
+      </div>
+    </div>
+  </section>
+  <div class="wrap policy-layout">
+    <aside class="toc">
+      <p class="toc-title" id="p-toc-title">On this page</p>
+      <nav id="p-toc" aria-label="On this page"></nav>
+    </aside>
+    <div id="p-sections"></div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="icons/icon128.png" alt="" width="30" height="30">
+      <div>VeilMate<span class="copy" id="p-footer-copy">© 2026 VeilMate</span></div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="https://annmax1983.com/extensions.html" target="_blank" rel="noopener" id="p-footer-more">More extensions</a>
+      <a href="index.html" id="p-footer-home">Home</a>
+      <a href="https://annmax1983.com/" target="_blank" rel="noopener" id="p-footer-site">Website</a>
+      <a href="mailto:support@annmax1983.com">support@annmax1983.com</a>
+    </nav>
+  </div>
+</footer>
+<script>
+const POLICY = {
+  "name": "VeilMate",
+  "langs": {
+    "en": {
+      "eyebrow": "Privacy Policy",
+      "sub": "Privacy Policy",
+      "summary": "VeilMate covers your browser so other people cannot see it. It collects nothing, transmits nothing and sells nothing. Your password never leaves the device and is never stored in readable form.",
+      "chips": ["Runs on your device", "No analytics", "No account", "Licence optional"],
+      "updated": "Last updated: October 30, 2026",
+      "tocTitle": "On this page",
+      "toc": [
+        ["01", "Overview"],
+        ["02", "Data stored on your device"],
+        ["03", "What is never collected"],
+        ["04", "Network requests"],
+        ["05", "Cross-device sync"],
+        ["06", "Permissions"],
+        ["07", "Biometrics"],
+        ["08", "Data removal"],
+        ["09", "Children"],
+        ["10", "Changes & contact"]
+      ],
+      "footerMore": "More extensions",
+      "footerHome": "Home",
+      "footerSite": "Website",
+      "sections": `
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>Overview</h2><div class="policy-body">
+<div class="box"><strong>Short version:</strong> VeilMate covers your browser so other people cannot see it. It does not collect, transmit or sell anything. Your password never leaves your device, and it is never stored in readable form.</div>
+<p>VeilMate draws a full-screen overlay over your tabs when you lock the browser, and removes it when you unlock. It works entirely inside your browser profile. There is no account and no server-side copy of your data. The single optional exception is Pro cross-device sync, which uses the browser's own sync storage and never passes through a server of ours.</p>
+</div></article>
+
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>Data stored on your device</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Stored item</th><th>Purpose</th><th>Lifetime</th></tr>
+<tr><td>Password hash (PBKDF2-SHA256, random salt, 310,000 iterations)</td><td>Verify the password you type</td><td>Until you change it, erase it or uninstall</td></tr>
+<tr><td>Settings (auto-lock timers, biometric credential id, toggles)</td><td>Remember your configuration</td><td>Until you uninstall</td></tr>
+<tr><td>Unlock attempt log (time, method, success)</td><td>Show the optional activity page</td><td>Last 50 entries, cleared on demand</td></tr>
+<tr><td>Lock state</td><td>Know whether the browser is currently covered</td><td>Local storage — persists across browser restarts until you unlock</td></tr>
+<tr><td>Synced preferences (Pro only, browser sync storage)</td><td>Carry your preferences between your own devices</td><td>Until you turn sync off or uninstall</td></tr>
+<tr><td>Lock-screen appearance (wallpaper, message, clock settings)</td><td>Draw the lock screen the way you chose</td><td>Until you change it or uninstall</td></tr>
+<tr><td>Licence key, random install ID, last validation time</td><td>Keep Pro features activated on this device</td><td>Until you remove the licence or uninstall</td></tr>
+</table></div>
+<p>A wallpaper image you upload is resized in the browser and kept as a data URL inside this profile's extension storage. It is never uploaded, shared or included in any network request.</p>
+</div></article>
+
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>What is never collected</h2><div class="policy-body">
+<ul>
+<li class="no-mark">❌ No page content, page titles, URLs, form data, keystrokes or screenshots</li>
+<li class="no-mark">❌ No password in readable form — only the derived hash is kept</li>
+<li class="no-mark">❌ No analytics, telemetry, crash reports or advertising identifiers</li>
+<li class="no-mark">❌ No account, e-mail address or profile</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>Network requests</h2><div class="policy-body">
+<p>VeilMate makes a network request in exactly one situation: when you activate a licence key, or when it later re-validates an existing licence. That request goes to <code>api.annmax1983.com</code> and contains the licence key you entered, a random install ID generated locally, and basic browser metadata (browser name and major version, UI language, time zone, user agent string).</p>
+<p>No browsing data is included. If you never activate a licence, the extension makes no network requests at all. The overlay, the password check and every automatic lock work entirely offline.</p>
+</div></article>
+
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>Cross-device sync</h2><div class="policy-body">
+<p>When you turn sync on, VeilMate writes one small settings object into <code>chrome.storage.sync</code> — the browser's own sync storage. In Chrome that channel belongs to your Google account, in Edge to your Microsoft account. The two are separate and never exchange data. We run no server on this path and cannot read or restore what is stored there.</p>
+<p>The synchronized object contains preference fields only: clock settings, auto-lock toggles and timers, the lock-screen message, the built-in gradient you picked, and the domain list that controls which sites the curtain covers. It never contains your password or its hash, your biometric credential ID, your unlock log, or an uploaded wallpaper — the last of these is far larger than the 8 KB per-item sync limit. Turning sync off deletes the stored copy.</p>
+</div></article>
+
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>Permissions</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Permission</th><th>Reason</th></tr>
+<tr><td><code>storage</code></td><td>Store settings, the persistent lock state, and Pro sync data via <code>storage.sync</code>.</td></tr>
+<tr><td><code>tabs</code></td><td>Cover open tabs, and catch new tabs and typed addresses while locked.</td></tr>
+<tr><td><code>windows</code></td><td>Detect that the browser window lost focus (focus-loss lock, Pro).</td></tr>
+<tr><td><code>idle</code></td><td>Idle auto-lock.</td></tr>
+<tr><td><code>https://api.annmax1983.com/*</code></td><td>Licence activation and validation only.</td></tr>
+</table></div>
+<p>The content script runs on http and https pages so it can draw the overlay there. It does not read page content, does not modify the page, and only communicates with VeilMate's own service worker.</p>
+</div></article>
+
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>Biometrics</h2><div class="policy-body">
+<p>If you enable biometric unlock (Pro), the browser's platform authenticator (Windows Hello, Touch ID, …) is used to confirm it is you. The biometric data itself never reaches the extension — the extension only receives and stores a credential ID. You can remove it at any time from the settings page.</p>
+</div></article>
+
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>Data removal</h2><div class="policy-body">
+<ul>
+<li><strong>Erase all settings</strong> in the options page removes the password and every setting, and deletes the synced copy.</li>
+<li>Uninstalling the extension deletes all locally stored data — and, as the only way out of a forgotten password, also the wallpaper and every setting.</li>
+<li>We hold no copy of your data, so there is nothing for us to delete on a server.</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>Children</h2><div class="policy-body">
+<p>VeilMate is a general-purpose utility and is not directed at children under 13.</p>
+</div></article>
+
+<article class="policy-card" id="section-10"><h2><span class="policy-num">10</span>Changes &amp; contact</h2><div class="policy-body">
+<p>If this policy changes, the “Last updated” date above changes with it. Material changes are noted in the extension's release notes.</p>
+<p>Questions about this policy: <a href="https://www.annmax1983.com/">www.annmax1983.com</a></p>
+</div></article>`
+    },
+    "zh": {
+      "eyebrow": "隐私政策",
+      "sub": "隐私政策",
+      "summary": "VeilMate 只是把你的浏览器遮起来，不收集、不上传、也不出售任何数据。密码永远不会离开这台设备，也不会以可读形式保存。",
+      "chips": ["本地运行", "无统计", "无需账号", "授权可选"],
+      "updated": "最后更新：2026 年 10 月 30 日",
+      "tocTitle": "本页内容",
+      "toc": [
+        ["01", "概述"],
+        ["02", "设备上保存了什么"],
+        ["03", "从不收集什么"],
+        ["04", "网络请求"],
+        ["05", "跨设备同步"],
+        ["06", "权限说明"],
+        ["07", "生物识别"],
+        ["08", "数据删除"],
+        ["09", "儿童"],
+        ["10", "变更与联系"]
+      ],
+      "footerMore": "更多扩展",
+      "footerHome": "首页",
+      "footerSite": "官网",
+      "sections": `
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>概述</h2><div class="policy-body">
+<div class="box"><strong>一句话版本：</strong>VeilMate 只是把你的浏览器遮起来，让别人看不到。它不收集、不上传、也不出售任何数据。密码永远不会离开这台设备，也不会以可读形式保存。</div>
+<p>锁定时，VeilMate 会在每个标签页上画一层全屏遮罩，解锁时把这一层移除。所有逻辑都在你的浏览器配置里运行，没有账号，也没有服务器端的副本。唯一的可选例外是 Pro 的跨设备同步：它使用浏览器自带的同步存储，不经过我们的任何服务器。</p>
+</div></article>
+
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>设备上保存了什么</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>保存内容</th><th>用途</th><th>保留时间</th></tr>
+<tr><td>密码哈希（PBKDF2-SHA256，随机盐，31 万次迭代）</td><td>校验你输入的密码</td><td>直到你修改、清空或卸载</td></tr>
+<tr><td>设置（自动锁计时、生物识别凭据 ID、各类开关）</td><td>记住你的配置</td><td>直到卸载</td></tr>
+<tr><td>解锁尝试记录（时间、方式、是否成功）</td><td>展示可选的锁定记录页</td><td>最近 50 条，可随时清空</td></tr>
+<tr><td>锁定状态</td><td>判断浏览器当前是否处于锁定</td><td>本地存储，重启浏览器后依然保留，直到解锁</td></tr>
+<tr><td>同步的偏好设置（仅 Pro，浏览器同步存储）</td><td>在你自己的设备之间同步偏好</td><td>直到关闭同步或卸载</td></tr>
+<tr><td>锁屏外观（壁纸、提示语、时钟设置）</td><td>按你的选择绘制锁屏</td><td>直到修改或卸载</td></tr>
+<tr><td>授权码、随机安装 ID、最后校验时间</td><td>保持本机的 Pro 功能处于激活状态</td><td>直到移除授权或卸载</td></tr>
+</table></div>
+<p>你上传的壁纸会在浏览器内缩放，然后以 data URL 的形式保存在本配置的扩展存储里，不会上传、不会共享，也不会出现在任何网络请求中。</p>
+</div></article>
+
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>从不收集什么</h2><div class="policy-body">
+<ul>
+<li class="no-mark">❌ 不收集页面内容、页面标题、网址、表单数据、按键或截图</li>
+<li class="no-mark">❌ 不保存可读形式的密码——只保留派生出的哈希</li>
+<li class="no-mark">❌ 没有统计、遥测、崩溃报告或广告标识</li>
+<li class="no-mark">❌ 没有账号、邮箱地址或个人档案</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>网络请求</h2><div class="policy-body">
+<p>VeilMate 只在一种情况下联网：你激活授权码，或者之后重新校验已有的授权。该请求发往 <code>api.annmax1983.com</code>，内容只有你输入的授权码、本地生成的随机安装 ID，以及基本的浏览器信息（浏览器名称与主版本号、界面语言、时区、User-Agent）。</p>
+<p>其中不包含任何浏览数据。如果你从未激活授权，扩展完全不会发起网络请求。遮罩、密码校验和所有自动锁定都在离线状态下工作。</p>
+</div></article>
+
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>跨设备同步</h2><div class="policy-body">
+<p>打开同步后，VeilMate 会把一个小型设置对象写入 <code>chrome.storage.sync</code>，也就是浏览器自带的同步存储。在 Chrome 里这条通道属于你的 Google 账号，在 Edge 里属于你的 Microsoft 账号，两者互不相通。这条路径上我们没有服务器，也无法读取或恢复其中的内容。</p>
+<p>同步对象只包含偏好字段：时钟设置、自动锁开关与计时、锁屏提示语、你选择的渐变壁纸，以及控制防窥幕范围的域名列表。它永远不包含密码或其哈希、生物识别凭据 ID、解锁记录或上传的壁纸（壁纸体积远超单项 8 KB 的同步上限）。关闭同步会删除已保存的副本。</p>
+</div></article>
+
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>权限说明</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>权限</th><th>用途</th></tr>
+<tr><td><code>storage</code></td><td>保存设置、持久化的锁定状态，以及通过 <code>storage.sync</code> 保存的 Pro 同步数据。</td></tr>
+<tr><td><code>tabs</code></td><td>遮住已打开的标签页，并在锁定期间拦截新标签页与手动输入的网址。</td></tr>
+<tr><td><code>windows</code></td><td>判断浏览器窗口是否失去焦点（失焦自动锁，Pro）。</td></tr>
+<tr><td><code>idle</code></td><td>空闲自动锁。</td></tr>
+<tr><td><code>https://api.annmax1983.com/*</code></td><td>仅用于授权激活与校验。</td></tr>
+</table></div>
+<p>内容脚本运行在 http 与 https 页面上，因为要在这里绘制遮罩。它不读取页面内容、不修改页面，只与本扩展自己的 service worker 通信。</p>
+</div></article>
+
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>生物识别</h2><div class="policy-body">
+<p>启用生物识别解锁（Pro）后，由浏览器的平台认证器（Windows Hello、Touch ID 等）确认是你本人。生物特征数据本身不会到达扩展——扩展只接收并保存一个凭据 ID。你可以随时在设置页移除它。</p>
+</div></article>
+
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>数据删除</h2><div class="policy-body">
+<ul>
+<li>在设置页点击<strong>清空全部设置</strong>，会删除密码与所有配置，并清除同步副本。</li>
+<li>卸载扩展会删除本地保存的全部数据——作为忘记密码时唯一的出路，也包括壁纸和所有设置。</li>
+<li>我们手里没有你数据的任何副本，因此服务器上也没有可删除的内容。</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>儿童</h2><div class="policy-body">
+<p>VeilMate 是通用工具，不面向 13 岁以下儿童。</p>
+</div></article>
+
+<article class="policy-card" id="section-10"><h2><span class="policy-num">10</span>变更与联系</h2><div class="policy-body">
+<p>本政策如有变更，上方的“最后更新”日期会同步修改；重要变更会在扩展的版本说明中注明。</p>
+<p>与本政策相关的问题：<a href="https://www.annmax1983.com/">www.annmax1983.com</a></p>
+</div></article>`
+   },
+   "ja": {
+     "eyebrow": "プライバシーポリシー",
+     "sub": "プライバシーポリシー",
+     "summary": "VeilMate はブラウザを覆って、他の人から見えないようにするだけのツールです。データの収集・送信・販売は一切行いません。パスワードが端末の外に出ることはなく、読める形で保存されることもありません。",
+     "chips": ["端末内で処理", "解析なし", "アカウント不要", "ライセンスは任意"],
+     "updated": "最終更新：2026年10月30日",
+     "tocTitle": "このページの内容",
+     "toc": [
+       ["01", "概要"],
+       ["02", "端末に保存されるデータ"],
+       ["03", "収集しないもの"],
+       ["04", "ネットワーク通信"],
+       ["05", "端末間の同期"],
+       ["06", "権限"],
+       ["07", "生体認証"],
+       ["08", "データの削除"],
+       ["09", "子どもについて"],
+       ["10", "変更と連絡先"]
+     ],
+     "footerMore": "他の拡張機能",
+     "footerHome": "ホーム",
+     "footerSite": "公式サイト",
+     "sections": `
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>概要</h2><div class="policy-body">
+<div class="box"><strong>ひとことで言うと：</strong>VeilMate はブラウザを覆って、他の人から見えないようにするだけのツールです。データの収集・送信・販売は一切行いません。パスワードが端末の外に出ることはなく、読める形で保存されることもありません。</div>
+<p>ロックすると、VeilMate は各タブの上に全画面のオーバーレイを描き、解錠するとその 1 枚を取り除きます。処理はすべてブラウザのプロファイル内で完結し、アカウントもサーバー側のコピーもありません。唯一の任意機能である Pro の端末間同期はブラウザ標準の同期ストレージを使い、当社のサーバーを経由しません。</p>
+</div></article>
+
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>端末に保存されるデータ</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>保存内容</th><th>目的</th><th>保存期間</th></tr>
+<tr><td>パスワードのハッシュ（PBKDF2-SHA256、ランダムなソルト、31 万回）</td><td>入力されたパスワードの照合</td><td>変更・消去・アンインストールまで</td></tr>
+<tr><td>設定（自動ロックのタイマー、生体認証の資格情報 ID、各種スイッチ）</td><td>設定の保持</td><td>アンインストールまで</td></tr>
+<tr><td>解錠の試行履歴（時刻・方法・成否）</td><td>任意の履歴ページの表示</td><td>直近 50 件、随時消去可能</td></tr>
+<tr><td>ロック状態</td><td>現在ロック中かどうかの判定</td><td>ローカル保存。ブラウザ再起動後も解錠するまで残ります</td></tr>
+<tr><td>同期される設定（Pro のみ、ブラウザの同期ストレージ）</td><td>ご自身の端末間で設定を共有</td><td>同期を切るかアンインストールするまで</td></tr>
+<tr><td>ロック画面の外観（壁紙、メッセージ、時計の設定）</td><td>選んだ見た目でロック画面を描画</td><td>変更またはアンインストールまで</td></tr>
+<tr><td>ライセンスキー、ランダムなインストール ID、最終検証日時</td><td>この端末で Pro 機能を有効に保つ</td><td>ライセンス削除またはアンインストールまで</td></tr>
+</table></div>
+<p>アップロードした壁紙はブラウザ内で縮小され、このプロファイルの拡張機能ストレージに data URL として保存されます。アップロード・共有されることはなく、どの通信にも含まれません。</p>
+</div></article>
+
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>収集しないもの</h2><div class="policy-body">
+<ul>
+<li class="no-mark">❌ ページの内容、タイトル、URL、フォーム入力、キー入力、スクリーンショット</li>
+<li class="no-mark">❌ 読める形のパスワード（保存されるのは派生したハッシュのみ）</li>
+<li class="no-mark">❌ 解析、テレメトリ、クラッシュレポート、広告識別子</li>
+<li class="no-mark">❌ アカウント、メールアドレス、プロフィール</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>ネットワーク通信</h2><div class="policy-body">
+<p>VeilMate が通信するのは 1 つの場面だけです。ライセンスキーを有効化するとき、または既存のライセンスを再検証するときです。送信先は <code>api.annmax1983.com</code> で、内容は入力されたライセンスキー、ローカルで生成したランダムなインストール ID、そしてブラウザ名とメジャーバージョン・UI 言語・タイムゾーン・User-Agent といった基本情報のみです。</p>
+<p>閲覧データは含まれません。ライセンスを有効化しない限り、拡張機能は一切通信しません。オーバーレイ、パスワード照合、自動ロックはすべてオフラインで動作します。</p>
+</div></article>
+
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>端末間の同期</h2><div class="policy-body">
+<p>同期をオンにすると、VeilMate は小さな設定オブジェクトを <code>chrome.storage.sync</code>（ブラウザ標準の同期ストレージ）に書き込みます。Chrome ではご自身の Google アカウント、Edge では Microsoft アカウントに属する領域で、両者は別々で互いにデータをやり取りしません。この経路に当社のサーバーはなく、保存内容を読んだり復元したりすることもできません。</p>
+<p>同期されるのは設定項目だけです。時計の設定、自動ロックのスイッチとタイマー、ロック画面のメッセージ、選択したグラデーション、そしてカーテンが覆う対象を決めるドメインリストです。パスワードやそのハッシュ、生体認証の資格情報 ID、解錠履歴、アップロードした壁紙は含まれません（壁紙は 1 項目 8 KB の同期上限を大きく超えます）。同期をオフにすると保存されたコピーは削除されます。</p>
+</div></article>
+
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>権限</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>権限</th><th>用途</th></tr>
+<tr><td><code>storage</code></td><td>設定、永続的なロック状態、<code>storage.sync</code> による Pro の同期データを保存します。</td></tr>
+<tr><td><code>tabs</code></td><td>開いているタブを覆い、ロック中に新しいタブや入力された URL を捕捉します。</td></tr>
+<tr><td><code>windows</code></td><td>ブラウザウィンドウがフォーカスを失ったことを検知します（フォーカス喪失ロック、Pro）。</td></tr>
+<tr><td><code>idle</code></td><td>アイドル時の自動ロック。</td></tr>
+<tr><td><code>https://api.annmax1983.com/*</code></td><td>ライセンスの有効化と検証のみ。</td></tr>
+</table></div>
+<p>コンテンツスクリプトは http と https のページで動作します。オーバーレイを描くためです。ページの内容を読み取ることも改変することもなく、この拡張機能自身のサービスワーカーとだけ通信します。</p>
+</div></article>
+
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>生体認証</h2><div class="policy-body">
+<p>生体認証による解錠（Pro）を有効にすると、ブラウザのプラットフォーム認証器（Windows Hello、Touch ID など）が本人確認を行います。生体情報そのものが拡張機能に渡ることはなく、拡張機能は資格情報 ID を受け取って保存するだけです。設定画面からいつでも削除できます。</p>
+</div></article>
+
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>データの削除</h2><div class="policy-body">
+<ul>
+<li>設定画面の<strong>すべての設定を消去</strong>を実行すると、パスワードとすべての設定が削除され、同期されたコピーも消えます。</li>
+<li>拡張機能をアンインストールすると、ローカルに保存されたデータはすべて削除されます。パスワードを忘れた場合の唯一の手段でもあり、壁紙とすべての設定も失われます。</li>
+<li>当社はデータのコピーを保持していないため、サーバー側に削除すべきものはありません。</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>子どもについて</h2><div class="policy-body">
+<p>VeilMate は汎用のユーティリティであり、13 歳未満の子どもを対象としていません。</p>
+</div></article>
+
+<article class="policy-card" id="section-10"><h2><span class="policy-num">10</span>変更と連絡先</h2><div class="policy-body">
+<p>このポリシーを変更した場合、上部の「最終更新」の日付も更新されます。重要な変更は拡張機能のリリースノートに記載します。</p>
+<p>本ポリシーに関するお問い合わせ：<a href="https://www.annmax1983.com/">www.annmax1983.com</a></p>
+</div></article>`
+   },
+   "de": {
+     "eyebrow": "Datenschutzerklärung",
+     "sub": "Datenschutzerklärung",
+     "summary": "VeilMate deckt deinen Browser ab, damit andere ihn nicht sehen. Es erhebt nichts, überträgt nichts und verkauft nichts. Dein Passwort verlässt das Gerät nie und wird nie lesbar gespeichert.",
+     "chips": ["Läuft auf deinem Gerät", "Keine Analyse", "Kein Konto", "Lizenz optional"],
+     "updated": "Zuletzt aktualisiert: 30. Oktober 2026",
+     "tocTitle": "Auf dieser Seite",
+     "toc": [
+       ["01", "Überblick"],
+       ["02", "Auf dem Gerät gespeicherte Daten"],
+       ["03", "Was nie erhoben wird"],
+       ["04", "Netzwerkanfragen"],
+       ["05", "Geräteübergreifende Synchronisierung"],
+       ["06", "Berechtigungen"],
+       ["07", "Biometrie"],
+       ["08", "Datenlöschung"],
+       ["09", "Kinder"],
+       ["10", "Änderungen & Kontakt"]
+     ],
+     "footerMore": "Weitere Erweiterungen",
+     "footerHome": "Startseite",
+     "footerSite": "Website",
+     "sections": `
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>Überblick</h2><div class="policy-body">
+<div class="box"><strong>Kurzfassung:</strong> VeilMate deckt deinen Browser ab, damit andere ihn nicht sehen. Es erhebt, überträgt und verkauft nichts. Dein Passwort verlässt das Gerät nie und wird nie lesbar gespeichert.</div>
+<p>Beim Sperren legt VeilMate eine Vollbild-Überlagerung über deine Tabs und entfernt sie beim Entsperren wieder. Alles läuft innerhalb deines Browser-Profils: kein Konto, keine Kopie auf einem Server. Die einzige optionale Ausnahme ist die geräteübergreifende Synchronisierung von Pro, die den Sync-Speicher des Browsers nutzt und nie über einen Server von uns läuft.</p>
+</div></article>
+
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>Auf dem Gerät gespeicherte Daten</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Gespeicherter Wert</th><th>Zweck</th><th>Dauer</th></tr>
+<tr><td>Passwort-Hash (PBKDF2-SHA256, zufälliges Salt, 310.000 Runden)</td><td>Prüfen des eingegebenen Passworts</td><td>Bis du es änderst, löschst oder deinstallierst</td></tr>
+<tr><td>Einstellungen (Autosperr-Zeiten, biometrische Credential-ID, Schalter)</td><td>Deine Konfiguration merken</td><td>Bis zur Deinstallation</td></tr>
+<tr><td>Protokoll der Entsperrversuche (Zeit, Methode, Erfolg)</td><td>Anzeige der optionalen Aktivitätsseite</td><td>Letzte 50 Einträge, jederzeit löschbar</td></tr>
+<tr><td>Sperrstatus</td><td>Wissen, ob der Browser gerade abgedeckt ist</td><td>Lokaler Speicher – bleibt über Browser-Neustarts bis zum Entsperren erhalten</td></tr>
+<tr><td>Synchronisierte Einstellungen (nur Pro, Browser-Sync-Speicher)</td><td>Einstellungen zwischen deinen Geräten mitnehmen</td><td>Bis du die Synchronisierung abschaltest oder deinstallierst</td></tr>
+<tr><td>Aussehen des Sperrbildschirms (Hintergrundbild, Meldung, Uhr)</td><td>Sperrbildschirm nach deiner Wahl zeichnen</td><td>Bis du es änderst oder deinstallierst</td></tr>
+<tr><td>Lizenzschlüssel, zufällige Installations-ID, letzte Prüfung</td><td>Pro-Funktionen auf diesem Gerät aktiv halten</td><td>Bis du die Lizenz entfernst oder deinstallierst</td></tr>
+</table></div>
+<p>Ein hochgeladenes Hintergrundbild wird im Browser verkleinert und als Data-URL im Erweiterungsspeicher dieses Profils abgelegt. Es wird nie hochgeladen, geteilt oder in eine Netzwerkanfrage aufgenommen.</p>
+</div></article>
+
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>Was nie erhoben wird</h2><div class="policy-body">
+<ul>
+<li class="no-mark">❌ Keine Seiteninhalte, Titel, URLs, Formulardaten, Tastatureingaben oder Screenshots</li>
+<li class="no-mark">❌ Kein lesbares Passwort – gespeichert wird nur der abgeleitete Hash</li>
+<li class="no-mark">❌ Keine Analyse, Telemetrie, Absturzberichte oder Werbe-IDs</li>
+<li class="no-mark">❌ Kein Konto, keine E-Mail-Adresse, kein Profil</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>Netzwerkanfragen</h2><div class="policy-body">
+<p>VeilMate stellt in genau einem Fall eine Netzwerkanfrage: wenn du einen Lizenzschlüssel aktivierst oder eine bestehende Lizenz später erneut geprüft wird. Diese Anfrage geht an <code>api.annmax1983.com</code> und enthält den eingegebenen Lizenzschlüssel, eine lokal erzeugte zufällige Installations-ID sowie grundlegende Browserdaten (Browsername und Hauptversion, UI-Sprache, Zeitzone, User-Agent).</p>
+<p>Browsing-Daten sind nicht enthalten. Wenn du nie eine Lizenz aktivierst, stellt die Erweiterung überhaupt keine Netzwerkanfragen. Überlagerung, Passwortprüfung und jede automatische Sperre funktionieren vollständig offline.</p>
+</div></article>
+
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>Geräteübergreifende Synchronisierung</h2><div class="policy-body">
+<p>Wenn du die Synchronisierung einschaltest, schreibt VeilMate ein kleines Einstellungsobjekt in <code>chrome.storage.sync</code> – den Sync-Speicher des Browsers. In Chrome gehört dieser Kanal zu deinem Google-Konto, in Edge zu deinem Microsoft-Konto. Beide sind getrennt und tauschen keine Daten aus. Auf diesem Weg betreiben wir keinen Server und können das Gespeicherte weder lesen noch wiederherstellen.</p>
+<p>Das synchronisierte Objekt enthält ausschließlich Einstellungen: Uhrzeiteinstellungen, Autosperr-Schalter und -Zeiten, die Meldung auf dem Sperrbildschirm, den gewählten Verlauf und die Domainliste, die festlegt, welche Seiten der Vorhang abdeckt. Es enthält nie dein Passwort oder dessen Hash, deine biometrische Credential-ID, dein Entsperrprotokoll oder ein hochgeladenes Hintergrundbild – letzteres überschreitet das Sync-Limit von 8 KB pro Eintrag deutlich. Beim Abschalten der Synchronisierung wird die gespeicherte Kopie gelöscht.</p>
+</div></article>
+
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>Berechtigungen</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Berechtigung</th><th>Grund</th></tr>
+<tr><td><code>storage</code></td><td>Einstellungen, den dauerhaften Sperrstatus und Pro-Syncdaten über <code>storage.sync</code> speichern.</td></tr>
+<tr><td><code>tabs</code></td><td>Offene Tabs abdecken und während der Sperre neue Tabs und getippte Adressen abfangen.</td></tr>
+<tr><td><code>windows</code></td><td>Erkennen, dass das Browserfenster den Fokus verloren hat (Sperre bei Fokusverlust, Pro).</td></tr>
+<tr><td><code>idle</code></td><td>Automatische Sperre bei Inaktivität.</td></tr>
+<tr><td><code>https://api.annmax1983.com/*</code></td><td>Ausschließlich Lizenzaktivierung und -prüfung.</td></tr>
+</table></div>
+<p>Das Content-Skript läuft auf http- und https-Seiten, weil es dort die Überlagerung zeichnet. Es liest keine Seiteninhalte, verändert die Seite nicht und kommuniziert nur mit dem Service Worker von VeilMate selbst.</p>
+</div></article>
+
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>Biometrie</h2><div class="policy-body">
+<p>Wenn du das biometrische Entsperren (Pro) aktivierst, bestätigt der Plattform-Authenticator des Browsers (Windows Hello, Touch ID, …), dass du es bist. Die biometrischen Daten selbst erreichen die Erweiterung nie – sie erhält und speichert nur eine Credential-ID. Du kannst sie jederzeit in den Einstellungen entfernen.</p>
+</div></article>
+
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>Datenlöschung</h2><div class="policy-body">
+<ul>
+<li><strong>Alle Einstellungen löschen</strong> in den Einstellungen entfernt das Passwort und jede Einstellung und löscht die synchronisierte Kopie.</li>
+<li>Die Deinstallation der Erweiterung löscht alle lokal gespeicherten Daten – und als einziger Ausweg bei vergessenem Passwort auch das Hintergrundbild und alle Einstellungen.</li>
+<li>Wir besitzen keine Kopie deiner Daten, auf einem Server gibt es also nichts zu löschen.</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>Kinder</h2><div class="policy-body">
+<p>VeilMate ist ein allgemeines Werkzeug und richtet sich nicht an Kinder unter 13 Jahren.</p>
+</div></article>
+
+<article class="policy-card" id="section-10"><h2><span class="policy-num">10</span>Änderungen &amp; Kontakt</h2><div class="policy-body">
+<p>Ändert sich diese Erklärung, ändert sich das Datum „Zuletzt aktualisiert“ oben mit. Wesentliche Änderungen werden in den Versionshinweisen der Erweiterung genannt.</p>
+<p>Fragen zu dieser Erklärung: <a href="https://www.annmax1983.com/">www.annmax1983.com</a></p>
+</div></article>`
+   },
+   "es": {
+     "eyebrow": "Política de privacidad",
+     "sub": "Política de privacidad",
+     "summary": "VeilMate cubre tu navegador para que otros no puedan verlo. No recoge, no transmite y no vende nada. Tu contraseña nunca sale del dispositivo y nunca se guarda en formato legible.",
+     "chips": ["Se ejecuta en tu dispositivo", "Sin analíticas", "Sin cuenta", "Licencia opcional"],
+     "updated": "Última actualización: 30 de octubre de 2026",
+     "tocTitle": "En esta página",
+     "toc": [
+       ["01", "Resumen"],
+       ["02", "Datos guardados en tu dispositivo"],
+       ["03", "Lo que nunca se recoge"],
+       ["04", "Solicitudes de red"],
+       ["05", "Sincronización entre dispositivos"],
+       ["06", "Permisos"],
+       ["07", "Biometría"],
+       ["08", "Eliminación de datos"],
+       ["09", "Menores"],
+       ["10", "Cambios y contacto"]
+     ],
+     "footerMore": "Más extensiones",
+     "footerHome": "Inicio",
+     "footerSite": "Sitio web",
+     "sections": `
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>Resumen</h2><div class="policy-body">
+<div class="box"><strong>Versión corta:</strong> VeilMate cubre tu navegador para que otros no puedan verlo. No recoge, no transmite y no vende nada. Tu contraseña nunca sale del dispositivo y nunca se guarda en formato legible.</div>
+<p>Al bloquear, VeilMate dibuja una capa a pantalla completa sobre tus pestañas y la retira al desbloquear. Todo ocurre dentro del perfil de tu navegador: no hay cuenta ni copia en ningún servidor. La única excepción opcional es la sincronización entre dispositivos de Pro, que usa el almacenamiento de sincronización del propio navegador y nunca pasa por un servidor nuestro.</p>
+</div></article>
+
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>Datos guardados en tu dispositivo</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Dato guardado</th><th>Finalidad</th><th>Duración</th></tr>
+<tr><td>Hash de la contraseña (PBKDF2-SHA256, sal aleatoria, 310.000 iteraciones)</td><td>Comprobar la contraseña que escribes</td><td>Hasta que la cambies, la borres o desinstales</td></tr>
+<tr><td>Ajustes (temporizadores de bloqueo, ID de credencial biométrica, interruptores)</td><td>Recordar tu configuración</td><td>Hasta que desinstales</td></tr>
+<tr><td>Registro de intentos de desbloqueo (hora, método, resultado)</td><td>Mostrar la página de actividad opcional</td><td>Últimas 50 entradas, borrables cuando quieras</td></tr>
+<tr><td>Estado de bloqueo</td><td>Saber si el navegador está cubierto ahora mismo</td><td>Almacenamiento local: se mantiene tras reiniciar el navegador hasta que desbloquees</td></tr>
+<tr><td>Preferencias sincronizadas (solo Pro, almacenamiento de sincronización del navegador)</td><td>Llevar tus preferencias entre tus dispositivos</td><td>Hasta que desactives la sincronización o desinstales</td></tr>
+<tr><td>Aspecto de la pantalla de bloqueo (fondo, mensaje, ajustes del reloj)</td><td>Dibujar la pantalla de bloqueo como elegiste</td><td>Hasta que lo cambies o desinstales</td></tr>
+<tr><td>Clave de licencia, ID de instalación aleatorio, última validación</td><td>Mantener las funciones Pro activas en este dispositivo</td><td>Hasta que quites la licencia o desinstales</td></tr>
+</table></div>
+<p>La imagen de fondo que subes se reduce en el navegador y se guarda como data URL en el almacenamiento de la extensión de este perfil. Nunca se sube, se comparte ni se incluye en ninguna solicitud de red.</p>
+</div></article>
+
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>Lo que nunca se recoge</h2><div class="policy-body">
+<ul>
+<li class="no-mark">❌ Ni contenido de páginas, ni títulos, ni URL, ni datos de formularios, ni pulsaciones, ni capturas</li>
+<li class="no-mark">❌ Ninguna contraseña legible: solo se guarda el hash derivado</li>
+<li class="no-mark">❌ Sin analíticas, telemetría, informes de fallos ni identificadores publicitarios</li>
+<li class="no-mark">❌ Sin cuenta, correo electrónico ni perfil</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>Solicitudes de red</h2><div class="policy-body">
+<p>VeilMate hace una solicitud de red en un único caso: cuando activas una clave de licencia o cuando más tarde se vuelve a validar una licencia existente. Esa solicitud va a <code>api.annmax1983.com</code> y contiene la clave que introdujiste, un ID de instalación aleatorio generado localmente y metadatos básicos del navegador (nombre y versión principal, idioma de la interfaz, zona horaria, user agent).</p>
+<p>No incluye datos de navegación. Si nunca activas una licencia, la extensión no hace ninguna solicitud de red. La capa, la comprobación de contraseña y todos los bloqueos automáticos funcionan sin conexión.</p>
+</div></article>
+
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>Sincronización entre dispositivos</h2><div class="policy-body">
+<p>Al activar la sincronización, VeilMate escribe un pequeño objeto de ajustes en <code>chrome.storage.sync</code>, el almacenamiento de sincronización del propio navegador. En Chrome ese canal pertenece a tu cuenta de Google; en Edge, a tu cuenta de Microsoft. Son independientes y nunca intercambian datos. En esta vía no tenemos servidor y no podemos leer ni restaurar lo que se guarda ahí.</p>
+<p>El objeto sincronizado contiene solo preferencias: ajustes del reloj, interruptores y tiempos de bloqueo automático, el mensaje de la pantalla de bloqueo, el degradado que elegiste y la lista de dominios que decide qué sitios cubre la cortina. Nunca contiene tu contraseña ni su hash, tu ID de credencial biométrica, tu registro de desbloqueos ni la imagen de fondo (esta última supera con creces el límite de 8 KB por elemento). Al desactivar la sincronización se borra la copia guardada.</p>
+</div></article>
+
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>Permisos</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Permiso</th><th>Motivo</th></tr>
+<tr><td><code>storage</code></td><td>Guardar ajustes, el estado de bloqueo persistente y los datos de sincronización de Pro mediante <code>storage.sync</code>.</td></tr>
+<tr><td><code>tabs</code></td><td>Cubrir las pestañas abiertas y capturar pestañas nuevas y direcciones escritas mientras está bloqueado.</td></tr>
+<tr><td><code>windows</code></td><td>Detectar que la ventana del navegador perdió el foco (bloqueo por pérdida de foco, Pro).</td></tr>
+<tr><td><code>idle</code></td><td>Bloqueo automático por inactividad.</td></tr>
+<tr><td><code>https://api.annmax1983.com/*</code></td><td>Únicamente activación y validación de licencias.</td></tr>
+</table></div>
+<p>El script de contenido se ejecuta en páginas http y https porque allí dibuja la capa. No lee el contenido de la página, no la modifica y solo se comunica con el service worker de VeilMate.</p>
+</div></article>
+
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>Biometría</h2><div class="policy-body">
+<p>Si activas el desbloqueo biométrico (Pro), el autenticador de plataforma del navegador (Windows Hello, Touch ID, …) confirma que eres tú. Los datos biométricos nunca llegan a la extensión: solo recibe y guarda un ID de credencial. Puedes eliminarlo en cualquier momento desde los ajustes.</p>
+</div></article>
+
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>Eliminación de datos</h2><div class="policy-body">
+<ul>
+<li><strong>Borrar todos los ajustes</strong> en la página de opciones elimina la contraseña y todos los ajustes, y borra la copia sincronizada.</li>
+<li>Desinstalar la extensión elimina todos los datos guardados localmente y, como única salida si olvidas la contraseña, también el fondo de pantalla y todos los ajustes.</li>
+<li>No conservamos ninguna copia de tus datos, así que no hay nada que borrar en un servidor.</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>Menores</h2><div class="policy-body">
+<p>VeilMate es una utilidad de uso general y no está dirigida a menores de 13 años.</p>
+</div></article>
+
+<article class="policy-card" id="section-10"><h2><span class="policy-num">10</span>Cambios y contacto</h2><div class="policy-body">
+<p>Si esta política cambia, la fecha de “Última actualización” de arriba cambia con ella. Los cambios importantes se anotan en las notas de la versión de la extensión.</p>
+<p>Dudas sobre esta política: <a href="https://www.annmax1983.com/">www.annmax1983.com</a></p>
+</div></article>`
+   },
+   "fr": {
+     "eyebrow": "Politique de confidentialité",
+     "sub": "Politique de confidentialité",
+     "summary": "VeilMate couvre votre navigateur pour que les autres ne puissent pas le voir. Il ne collecte rien, ne transmet rien et ne vend rien. Votre mot de passe ne quitte jamais l'appareil et n'est jamais stocké en clair.",
+     "chips": ["Fonctionne sur votre appareil", "Aucune analyse", "Sans compte", "Licence facultative"],
+     "updated": "Dernière mise à jour : 30 octobre 2026",
+     "tocTitle": "Sur cette page",
+     "toc": [
+       ["01", "Aperçu"],
+       ["02", "Données stockées sur votre appareil"],
+       ["03", "Ce qui n'est jamais collecté"],
+       ["04", "Requêtes réseau"],
+       ["05", "Synchronisation entre appareils"],
+       ["06", "Autorisations"],
+       ["07", "Biométrie"],
+       ["08", "Suppression des données"],
+       ["09", "Enfants"],
+       ["10", "Modifications et contact"]
+     ],
+     "footerMore": "Plus d'extensions",
+     "footerHome": "Accueil",
+     "footerSite": "Site web",
+     "sections": `
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>Aperçu</h2><div class="policy-body">
+<div class="box"><strong>Version courte :</strong> VeilMate couvre votre navigateur pour que les autres ne puissent pas le voir. Il ne collecte rien, ne transmet rien et ne vend rien. Votre mot de passe ne quitte jamais l'appareil et n'est jamais stocké en clair.</div>
+<p>Au verrouillage, VeilMate dessine une surcouche plein écran sur vos onglets et la retire au déverrouillage. Tout se passe dans le profil de votre navigateur : pas de compte, pas de copie sur un serveur. La seule exception facultative est la synchronisation entre appareils de Pro, qui utilise le stockage de synchronisation du navigateur et ne passe jamais par un serveur chez nous.</p>
+</div></article>
+
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>Données stockées sur votre appareil</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Élément stocké</th><th>Finalité</th><th>Durée</th></tr>
+<tr><td>Empreinte du mot de passe (PBKDF2-SHA256, sel aléatoire, 310 000 itérations)</td><td>Vérifier le mot de passe saisi</td><td>Jusqu'à modification, effacement ou désinstallation</td></tr>
+<tr><td>Réglages (délais de verrouillage, identifiant biométrique, interrupteurs)</td><td>Mémoriser votre configuration</td><td>Jusqu'à la désinstallation</td></tr>
+<tr><td>Journal des tentatives de déverrouillage (heure, méthode, résultat)</td><td>Afficher la page d'activité facultative</td><td>50 dernières entrées, effaçables à tout moment</td></tr>
+<tr><td>État de verrouillage</td><td>Savoir si le navigateur est actuellement couvert</td><td>Stockage local : conservé après un redémarrage jusqu'au déverrouillage</td></tr>
+<tr><td>Préférences synchronisées (Pro uniquement, stockage de synchronisation du navigateur)</td><td>Retrouver vos préférences entre vos appareils</td><td>Jusqu'à désactivation de la synchronisation ou désinstallation</td></tr>
+<tr><td>Apparence de l'écran de verrouillage (fond, message, réglages de l'horloge)</td><td>Dessiner l'écran de verrouillage comme vous l'avez choisi</td><td>Jusqu'à modification ou désinstallation</td></tr>
+<tr><td>Clé de licence, identifiant d'installation aléatoire, dernière validation</td><td>Maintenir les fonctions Pro actives sur cet appareil</td><td>Jusqu'au retrait de la licence ou à la désinstallation</td></tr>
+</table></div>
+<p>Une image de fond importée est redimensionnée dans le navigateur et conservée sous forme de data URL dans le stockage de l'extension de ce profil. Elle n'est jamais envoyée, partagée ni incluse dans une requête réseau.</p>
+</div></article>
+
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>Ce qui n'est jamais collecté</h2><div class="policy-body">
+<ul>
+<li class="no-mark">❌ Aucun contenu de page, titre, URL, donnée de formulaire, frappe clavier ou capture d'écran</li>
+<li class="no-mark">❌ Aucun mot de passe en clair — seule l'empreinte dérivée est conservée</li>
+<li class="no-mark">❌ Aucune analyse, télémétrie, rapport de plantage ou identifiant publicitaire</li>
+<li class="no-mark">❌ Aucun compte, adresse e-mail ou profil</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>Requêtes réseau</h2><div class="policy-body">
+<p>VeilMate effectue une requête réseau dans un seul cas : lorsque vous activez une clé de licence, ou lorsque la validité d'une licence existante est revérifiée plus tard. Cette requête part vers <code>api.annmax1983.com</code> et contient la clé saisie, un identifiant d'installation aléatoire généré localement et des métadonnées de navigateur (nom et version majeure, langue de l'interface, fuseau horaire, user agent).</p>
+<p>Aucune donnée de navigation n'y figure. Si vous n'activez jamais de licence, l'extension n'émet aucune requête réseau. La surcouche, la vérification du mot de passe et tous les verrouillages automatiques fonctionnent hors ligne.</p>
+</div></article>
+
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>Synchronisation entre appareils</h2><div class="policy-body">
+<p>Lorsque vous activez la synchronisation, VeilMate écrit un petit objet de réglages dans <code>chrome.storage.sync</code>, le stockage de synchronisation du navigateur. Sous Chrome, ce canal appartient à votre compte Google ; sous Edge, à votre compte Microsoft. Les deux sont séparés et n'échangent jamais de données. Nous n'exploitons aucun serveur sur ce chemin et ne pouvons ni lire ni restaurer ce qui y est stocké.</p>
+<p>L'objet synchronisé ne contient que des préférences : réglages de l'horloge, interrupteurs et délais de verrouillage automatique, message de l'écran de verrouillage, dégradé choisi et liste de domaines qui détermine les sites couverts par le rideau. Il ne contient jamais votre mot de passe ni son empreinte, votre identifiant biométrique, votre journal de déverrouillage ou l'image de fond importée — cette dernière dépasse largement la limite de 8 Ko par élément. Désactiver la synchronisation supprime la copie stockée.</p>
+</div></article>
+
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>Autorisations</h2><div class="policy-body">
+<div class="table-wrap"><table>
+<tr><th>Autorisation</th><th>Raison</th></tr>
+<tr><td><code>storage</code></td><td>Stocker les réglages, l'état de verrouillage persistant et les données de synchronisation Pro via <code>storage.sync</code>.</td></tr>
+<tr><td><code>tabs</code></td><td>Couvrir les onglets ouverts et intercepter les nouveaux onglets et les adresses saisies pendant le verrouillage.</td></tr>
+<tr><td><code>windows</code></td><td>Détecter la perte de focus de la fenêtre du navigateur (verrouillage à la perte de focus, Pro).</td></tr>
+<tr><td><code>idle</code></td><td>Verrouillage automatique en cas d'inactivité.</td></tr>
+<tr><td><code>https://api.annmax1983.com/*</code></td><td>Activation et validation de licence uniquement.</td></tr>
+</table></div>
+<p>Le script de contenu s'exécute sur les pages http et https, car c'est là qu'il dessine la surcouche. Il ne lit pas le contenu de la page, ne la modifie pas et ne communique qu'avec le service worker de VeilMate.</p>
+</div></article>
+
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>Biométrie</h2><div class="policy-body">
+<p>Si vous activez le déverrouillage biométrique (Pro), l'authentificateur de la plateforme (Windows Hello, Touch ID, …) confirme que c'est bien vous. Les données biométriques elles-mêmes n'atteignent jamais l'extension : elle reçoit et conserve seulement un identifiant d'identification. Vous pouvez le supprimer à tout moment depuis les réglages.</p>
+</div></article>
+
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>Suppression des données</h2><div class="policy-body">
+<ul>
+<li><strong>Effacer tous les réglages</strong> dans la page d'options supprime le mot de passe et tous les réglages, et efface la copie synchronisée.</li>
+<li>Désinstaller l'extension supprime toutes les données stockées localement — et, seule issue en cas de mot de passe oublié, également l'image de fond et tous les réglages.</li>
+<li>Nous ne détenons aucune copie de vos données : il n'y a donc rien à supprimer sur un serveur.</li>
+</ul>
+</div></article>
+
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>Enfants</h2><div class="policy-body">
+<p>VeilMate est un utilitaire d'usage général et ne s'adresse pas aux enfants de moins de 13 ans.</p>
+</div></article>
+
+<article class="policy-card" id="section-10"><h2><span class="policy-num">10</span>Modifications et contact</h2><div class="policy-body">
+<p>Si cette politique change, la date « Dernière mise à jour » ci-dessus change également. Les changements importants sont signalés dans les notes de version de l'extension.</p>
+<p>Questions sur cette politique : <a href="https://www.annmax1983.com/">www.annmax1983.com</a></p>
+</div></article>`
+   }
+ }
+};
+const LANG_KEY = "vkt-veil-mate-lang";
+(function () {
+  "use strict";
+
+  var select = document.getElementById("p-lang");
+
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value == null ? "" : value;
+  }
+
+  function detect() {
+    var codes = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+    for (var i = 0; i < codes.length; i++) {
+      var code = String(codes[i] || "").toLowerCase();
+      if (code.indexOf("zh") === 0) return "zh";
+      if (code.indexOf("ja") === 0) return "ja";
+      if (code.indexOf("de") === 0) return "de";
+      if (code.indexOf("es") === 0) return "es";
+      if (code.indexOf("fr") === 0) return "fr";
+      if (code.indexOf("en") === 0) return "en";
+    }
+    return "en";
+  }
+
+  function render(lang) {
+    // 六种语言都有完整正文；未知语言回落到英文
+    var key = POLICY.langs[lang] ? lang : "en";
+    var data = POLICY.langs[key];
+
+    document.documentElement.lang = key === "zh" ? "zh-CN" : key;
+    document.title = POLICY.name + " — " + data.sub;
+
+    setText("p-eyebrow", data.eyebrow);
+    setText("p-h1", POLICY.name);
+    setText("p-h1-sub", data.sub);
+    setText("p-summary", data.summary);
+    setText("p-updated", data.updated);
+    setText("p-toc-title", data.tocTitle);
+    setText("p-footer-more", data.footerMore);
+    setText("p-footer-home", data.footerHome);
+    setText("p-footer-site", data.footerSite);
+    setText("p-footer-copy", "© 2026 " + POLICY.name);
+
+    var chips = document.getElementById("p-chips");
+    if (chips) {
+      chips.innerHTML = data.chips.map(function (chip) {
+        return '<span class="chip">' + chip + "</span>";
+      }).join("");
+    }
+
+    var toc = document.getElementById("p-toc");
+    if (toc) {
+      toc.innerHTML = data.toc.map(function (item) {
+        return '<a href="#section-' + Number(item[0]) + '"><span>' + item[0] + "</span>" + item[1] + "</a>";
+      }).join("");
+    }
+
+    var sections = document.getElementById("p-sections");
+    if (sections) sections.innerHTML = data.sections;
+
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", data.summary.slice(0, 158));
+  }
+
+  function storedLang() {
+    try { return localStorage.getItem(LANG_KEY); } catch (error) { return null; }
+  }
+
+  function remember(lang) {
+    try { localStorage.setItem(LANG_KEY, lang); } catch (error) { /* storage can be blocked */ }
+  }
+
+  render("en");
+
+  if (select) {
+    var saved = storedLang();
+    var initial = saved || detect();
+    select.value = initial;
+    if (initial !== "en") render(initial);
+    select.addEventListener("change", function () {
+      remember(select.value);
+      render(select.value);
+    });
+  }
+})();
+</script>
+</body>
+</html>

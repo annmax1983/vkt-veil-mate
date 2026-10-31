@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VeilMate — Cover every tab in one click</title>
+<meta name="description" content="VeilMate covers every tab the moment you step away and unlocks with a password or your fingerprint. Nothing reloads, nothing is uploaded.">
+<link rel="icon" href="icons/icon128.png">
+<style>
+:root{
+  --accent:#7c5cf5;
+  --accent-2:#4f46e5;
+  --bg:#f7f6fd;
+  --surface:#ffffff;
+  --ink:#1b1930;
+  --body:#4a4763;
+  --muted:#6f6b8c;
+  --line:#e6e4f2;
+  --tint:color-mix(in srgb, var(--accent) 8%, #ffffff);
+  --shadow:0 18px 45px -24px rgba(24,20,60,.35);
+  --shadow-soft:0 8px 24px -18px rgba(24,20,60,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{
+  margin:0;
+  color:var(--body);
+  background:radial-gradient(900px 460px at 100% -8%, color-mix(in srgb, var(--accent-2) 12%, #ffffff) 0%, rgba(255,255,255,0) 70%), var(--bg);
+  font-family:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button,select{font:inherit}
+[hidden]{display:none !important}
+::selection{background:color-mix(in srgb, var(--accent) 22%, #ffffff);color:var(--ink)}
+:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 55%, #ffffff);outline-offset:3px}
+.wrap{width:min(1120px, calc(100% - 40px));margin:0 auto}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar-inner{display:flex;align-items:center;gap:18px;height:70px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:16px;font-weight:750;letter-spacing:-.015em;white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:9px;background:#fff;border:1px solid var(--line)}
+.nav-links{display:flex;align-items:center;gap:20px;margin-left:auto;font-size:13.5px;font-weight:650}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--accent);text-decoration:none}
+.top-actions{display:flex;align-items:center;gap:9px;margin-left:auto}
+.nav-links + .top-actions{margin-left:0}
+.lang{
+  appearance:none;-webkit-appearance:none;border:1px solid var(--line);
+  background-color:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236f6b8c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;background-size:12px;
+  color:var(--ink);border-radius:10px;padding:9px 32px 9px 11px;font-size:13px;font-weight:600;cursor:pointer;max-width:150px;
+}
+.lang:hover{border-color:color-mix(in srgb, var(--accent) 26%, var(--line))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 20px;border-radius:12px;border:1px solid transparent;font-weight:700;font-size:14.5px;line-height:1.2;transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 14px 30px -16px color-mix(in srgb, var(--accent) 70%, transparent)}
+.btn-secondary{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-secondary:hover{border-color:color-mix(in srgb, var(--accent) 28%, var(--line))}
+.btn-quiet{background:transparent;color:var(--muted);padding:0 8px}
+.btn-quiet:hover{color:var(--accent)}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--muted)}
+.icon-btn:hover{color:var(--accent);border-color:color-mix(in srgb, var(--accent) 26%, var(--line));text-decoration:none}
+.site-footer{margin-top:48px;border-top:1px solid var(--line);background:rgba(255,255,255,.8);padding:32px 0}
+.footer-inner{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between}
+.footer-brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:14px;font-weight:700}
+.footer-brand img{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.footer-brand .copy{display:block;color:var(--muted);font-size:12px;font-weight:500;line-height:1.4;margin-top:1px}
+.footer-links{display:flex;flex-wrap:wrap;gap:9px 18px;align-items:center;font-size:13px;font-weight:600}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:66px 0 44px}
+.hero::before{content:"";position:absolute;right:-160px;top:-220px;width:780px;height:780px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--accent-2) 18%, rgba(255,255,255,0)) 0%, rgba(255,255,255,0) 68%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.18fr) minmax(300px,.82fr);gap:54px;align-items:center}
+.hero-copy{min-width:0}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid color-mix(in srgb, var(--accent) 22%, var(--line));background:color-mix(in srgb, var(--accent) 7%, #ffffff);color:var(--accent);font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.hero h1{margin:16px 0 14px;color:var(--ink);font-size:clamp(36px,4.9vw,56px);line-height:1.05;letter-spacing:-.04em;font-weight:800;overflow-wrap:anywhere}
+.tagline{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 20px}
+.tagline span{padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.8);color:var(--muted);font-size:12.5px;font-weight:650}
+.lead{max-width:680px;margin:0 0 22px;color:var(--body);font-size:17px;line-height:1.72}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:12.5px;font-weight:650}
+.badge svg{color:var(--accent)}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.micro{margin:16px 0 0;color:var(--muted);font-size:12.5px;font-weight:550}
+.app-card{position:relative;overflow:hidden;padding:32px 28px 24px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(160deg,#ffffff 0%, color-mix(in srgb, var(--accent) 7%, #ffffff) 100%);box-shadow:var(--shadow);text-align:center}
+.app-card-glow{position:absolute;width:220px;height:220px;left:50%;top:-120px;transform:translateX(-50%);border-radius:50%;background:color-mix(in srgb, var(--accent-2) 20%, rgba(255,255,255,0));filter:blur(8px)}
+.app-icon{position:relative;width:108px;height:108px;margin:6px auto 18px;padding:11px;border-radius:26px;background:#fff;border:1px solid var(--line);box-shadow:0 16px 30px -18px rgba(24,20,60,.45)}
+.app-icon img{width:100%;height:100%;object-fit:contain;border-radius:18px}
+.app-name{position:relative;color:var(--ink);font-size:23px;font-weight:800;letter-spacing:-.02em}
+.app-sub{position:relative;margin:4px 0 20px;color:var(--muted);font-size:12.5px;font-weight:600}
+.app-points{position:relative;display:grid;gap:8px;text-align:left}
+.app-points div{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.72);color:var(--body);font-size:13px;line-height:1.45}
+.app-points svg{flex:none;margin-top:2px;color:var(--accent)}
+.app-footer{position:relative;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:650}
+.app-footer svg{color:var(--accent)}
+
+/* blocks */
+.block{padding:56px 0}
+.section-head{max-width:720px;margin:0 0 26px}
+.kicker{margin:0 0 9px;color:var(--accent);font-size:11.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+.section-head h2,.support-copy h2{margin:0 0 10px;color:var(--ink);font-size:clamp(27px,3.2vw,37px);line-height:1.15;letter-spacing:-.025em;font-weight:800}
+.section-head p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.65}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.feature{padding:21px 21px 23px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow-soft);transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease}
+.feature:hover{transform:translateY(-2px);border-color:color-mix(in srgb, var(--accent) 22%, var(--line));box-shadow:0 14px 32px -18px rgba(24,20,60,.32)}
+.feature .num{display:inline-flex;align-items:center;justify-content:center;width:33px;height:33px;margin-bottom:13px;border-radius:10px;background:var(--tint);color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.04em}
+.feature p{margin:0;color:var(--body);font-size:14px;line-height:1.66}
+.more-panel{margin-top:15px;padding:22px 24px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow-soft)}
+.more-panel h3{margin:0 0 13px;color:var(--ink);font-size:13.5px;font-weight:750}
+.more-list{display:grid;grid-template-columns:1fr 1fr;gap:9px 28px;margin:0;padding:0;list-style:none}
+.more-list li{position:relative;padding-left:19px;color:var(--body);font-size:13.5px;line-height:1.55}
+.more-list li::before{content:"";position:absolute;left:1px;top:.6em;width:7px;height:7px;border-radius:2px;background:var(--accent-2)}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.plan{padding:26px 27px;border:1px solid var(--line);border-radius:21px;background:#fff;box-shadow:var(--shadow-soft)}
+.plan.premium{border-color:color-mix(in srgb, var(--accent) 25%, var(--line));background:linear-gradient(160deg,#ffffff 0%, color-mix(in srgb, var(--accent) 8%, #ffffff) 100%);box-shadow:var(--shadow)}
+.plan-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.plan-top h3{margin:0;color:var(--ink);font-size:20px;font-weight:780;letter-spacing:-.02em}
+.plan-mark{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9px}
+.plan-mark.free{background:var(--tint);color:var(--accent)}
+.plan-mark.premium{background:var(--accent);color:#fff}
+.plan p{margin:0;color:var(--body);font-size:14.5px;line-height:1.72}
+.plan-note{margin-top:15px;padding:14px 17px;border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line));border-radius:13px;background:var(--tint);color:var(--body);font-size:13px;line-height:1.65}
+.privacy-panel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);gap:34px;align-items:center;padding:42px 44px;border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line));border-radius:28px;background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, #ffffff) 0%, #ffffff 62%, color-mix(in srgb, var(--accent-2) 12%, #ffffff) 100%);box-shadow:var(--shadow)}
+.panel-icon{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;margin-bottom:15px;border-radius:14px;background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:var(--shadow-soft)}
+.privacy-panel h2{margin:0 0 10px;color:var(--ink);font-size:clamp(26px,3vw,35px);line-height:1.15;letter-spacing:-.025em;font-weight:800}
+.panel-lead{max-width:620px;margin:0 0 18px;color:var(--body);font-size:15px;line-height:1.7}
+.points{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.point{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.78);color:var(--ink);font-size:12.5px;font-weight:650}
+.point svg{color:var(--accent)}
+.text-link{display:inline-flex;align-items:center;gap:7px;color:var(--accent);font-size:13.5px;font-weight:750}
+.text-link:hover{text-decoration:none;gap:10px}
+.privacy-visual{position:relative;min-height:250px;display:grid;place-items:center}
+.ring{position:absolute;border-radius:50%;border:1px solid color-mix(in srgb, var(--accent) 20%, #ffffff)}
+.ring.one{width:190px;height:190px}
+.ring.two{width:260px;height:260px;opacity:.58}
+.ring.three{width:320px;height:320px;opacity:.32}
+.lock-badge{position:relative;display:grid;place-items:center;width:88px;height:88px;border-radius:26px;background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:var(--shadow)}
+.lock-badge svg{width:36px;height:36px}
+.support-card{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:34px;align-items:center;padding:40px 44px;border:1px solid var(--line);border-radius:28px;background:#fff;box-shadow:var(--shadow-soft)}
+.support-copy .kicker{margin-bottom:10px}
+.support-copy p{max-width:640px;margin:0 0 12px;color:var(--body);font-size:14.5px;line-height:1.75}
+.support-copy p:last-of-type{margin-bottom:16px}
+.disclaimer{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.kofi{display:flex;flex-direction:column;align-items:center;gap:12px;padding:26px 22px;border:1px solid color-mix(in srgb, var(--accent) 16%, var(--line));border-radius:20px;background:linear-gradient(160deg, color-mix(in srgb, var(--accent) 7%, #ffffff) 0%, #ffffff 100%);text-align:center}
+.kofi-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:var(--shadow-soft)}
+.kofi p{margin:0;color:var(--body);font-size:13px;line-height:1.6}
+.kofi-btn{width:100%}
+.kofi-note{margin:0;color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.heart{color:var(--accent)}
+@media (max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .app-card{max-width:460px;margin:0 auto;width:100%}
+  .feature-grid{grid-template-columns:1fr 1fr}
+  .privacy-panel,.support-card{grid-template-columns:1fr;gap:26px}
+  .privacy-visual{min-height:210px}
+}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .topbar-inner{height:62px}
+  .wrap{width:calc(100% - 32px)}
+}
+@media (max-width:760px){
+  .hero{padding:44px 0 30px}
+  .hero h1{font-size:clamp(33px,9vw,46px)}
+  .lead{font-size:16px}
+  .block{padding:42px 0}
+  .feature-grid{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .more-list{grid-template-columns:1fr}
+  .privacy-panel,.support-card{padding:28px 22px;border-radius:22px}
+  .privacy-visual{display:none}
+  .cta-row .btn{flex:1 1 auto}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important;animation:none !important}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html"><img src="icons/icon128.png" alt="" width="32" height="32"><span>VeilMate</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features" id="i-nav-features">Features</a>
+      <a href="#plans" id="i-nav-plans">Free &amp; Pro</a>
+      <a href="#privacy" id="i-nav-privacy">Privacy</a>
+      <a href="#support" id="i-nav-support">Support</a>
+    </nav>
+    <div class="top-actions">
+      <select class="lang" id="i-lang" aria-label="Language"><option value="en">English</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="de">Deutsch</option><option value="es">Español</option><option value="fr">Français</option></select>
+      <a class="icon-btn" href="https://github.com/annmax1983/vkt-veil-mate" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 5.96c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg></a>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow" id="i-eyebrow">Chrome &amp; Edge extension</span>
+        <h1 id="i-h1">Cover every tab in one click</h1>
+        <div class="tagline" id="i-tagline"><span>No reloads</span><span>Nothing lost</span></div>
+        <p class="lead" id="i-intro">VeilMate throws a blanket over every tab the moment you step away, then hands them back exactly as they were: same scroll position, same half-typed message, same paused video. Unlock with a password or your fingerprint. Nothing reloads, and nothing is uploaded.</p>
+        <div class="badges" id="i-badges"><span class="badge"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12h8M12 8v8"/></svg>Runs locally</span><span class="badge"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 9 4.5 9 7a11.7 11.7 0 0 1-2.3 3.6"/><path d="M6.2 6.2C4.2 7.7 3 9.7 3 12c0 2.5 4 7 9 7a11 11 0 0 0 4.2-.8"/></svg>Nothing uploaded</span><span class="badge"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg>Chrome &amp; Edge</span></div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://annmax1983.com/extensions/veilmate" target="_blank" rel="noopener"><span id="i-get-label">Get the extension</span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-secondary" href="privacy-policy.html"><span id="i-privacy-label">Privacy policy</span></a>
+          <a class="btn btn-quiet" href="https://github.com/annmax1983/vkt-veil-mate" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 5.96c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg><span id="i-source-label">View source</span></a>
+        </div>
+        <p class="micro" id="i-micro">Free + Pro · Chrome &amp; Edge</p>
+      </div>
+      <aside class="app-card" aria-label="VeilMate">
+        <div class="app-card-glow" aria-hidden="true"></div>
+        <div class="app-icon"><img src="icons/icon128.png" alt="VeilMate icon" width="108" height="108"></div>
+        <div class="app-name" id="i-app-name">VeilMate</div>
+        <div class="app-sub" id="i-app-sub">Free + Pro</div>
+        <div class="app-points" id="i-app-points"><div><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Runs locally</span></div><div><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>No account</span></div><div><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Licence optional</span></div></div>
+        <div class="app-footer"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg><span id="i-app-browsers">Chrome &amp; Edge</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">01</p>
+        <h2 id="i-feat-title">Everything it does</h2>
+        <p id="i-feat-lead">The core features at a glance.</p>
+      </div>
+      <div class="feature-grid" id="i-features">
+<article class="feature"><span class="num">01</span><p>A closed shadow-DOM overlay is drawn over each page, so unlocking removes one layer instead of reloading the tab.</p></article>
+<article class="feature"><span class="num">02</span><p>The toolbar button covers every window at once, and VeilMate registers no keyboard shortcut at all, so it never competes for your keys.</p></article>
+<article class="feature"><span class="num">03</span><p>Covered pages swallow clicks, scrolling, typing and wheel events, so nothing behind the overlay reacts.</p></article>
+<article class="feature"><span class="num">04</span><p>New tabs, new windows including private ones, and addresses typed while locked are all caught and sent to the lock screen.</p></article>
+<article class="feature"><span class="num">05</span><p>The lock lives in local storage, so it is still there after a browser restart until you unlock it.</p></article>
+<article class="feature"><span class="num">06</span><p>Passwords are derived with PBKDF2-SHA256 at 310,000 iterations and never leave the device.</p></article>
+      </div>
+      <div class="more-panel" id="i-more-panel">
+        <h3 id="i-more-title">Also included</h3>
+        <ul class="more-list" id="i-more"><li>Idle auto-lock covers the browser after ten minutes without input, and five wrong passwords put the lock screen in a thirty-second cooldown.</li>
+<li>The lock screen shows a large clock, so you can read the time without revealing what you were working on.</li>
+<li>Six interface languages: English, 简体中文, 日本語, Deutsch, Español, Français.</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plans">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">02</p>
+        <h2 id="i-plan-title">Free vs Pro</h2>
+        <p id="i-plan-lead">The free tier is a complete lock, not a trial. Pro is optional.</p>
+      </div>
+      <div class="plans" id="i-plans">
+        <article class="plan"><div class="plan-top"><span class="plan-mark free"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>Free</h3></div><p>One-click lock, the lossless overlay, password unlock, a lock that survives a browser restart, idle auto-lock, a ten-domain exempt list, the new-tab and address-bar trap, the large clock, brute-force cooldown and six languages.</p></article>
+        <article class="plan premium"><div class="plan-top"><span class="plan-mark premium"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><h3>Pro</h3></div><p>Targeted lock that covers only the domains you list, biometric unlock with Windows Hello or Touch ID, focus-loss lock, system-lock link, lock at browser start, the privacy curtain, the lock activity log, wallpaper and a custom lock-screen message, and cross-device sync including the domain list.</p></article>
+      </div>
+      <div class="plan-note" id="i-plan-note">No account and no licence are needed to lock your browser. Pro is optional.</div>
+    </div>
+  </section>
+
+  <section class="block" id="privacy">
+    <div class="wrap">
+      <div class="privacy-panel">
+        <div>
+          <span class="panel-icon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg></span>
+          <h2 id="i-priv-title">Private by design</h2>
+          <p class="panel-lead" id="i-priv-lead">Your tabs stay on your device. No screenshots, no page content, no browsing history leaves the browser. Read exactly what is stored and when the extension touches the network.</p>
+          <div class="points" id="i-priv-points"><span class="point"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Runs locally</span><span class="point"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No account</span><span class="point"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Licence optional</span></div>
+          <a class="text-link" href="privacy-policy.html"><span id="i-priv-cta">Read the privacy policy</span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="privacy-visual" aria-hidden="true">
+          <span class="ring one"></span><span class="ring two"></span><span class="ring three"></span>
+          <span class="lock-badge"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="support">
+    <div class="wrap">
+      <div class="support-card">
+        <div class="support-copy">
+          <p class="kicker" id="i-support-eyebrow">Support the developer</p>
+          <h2 id="i-support-title">💌 A Note to You</h2>
+          <div id="i-support-copy"><p>Thank you for using VeilMate. I built it because every lock extension I tried either reloaded my tabs or handed me a lock I could walk around.</p><p>VeilMate hides your tabs from people walking past. It is not encryption, and the settings page says so in plain words.</p><p>If it helps you, that is already the best reward. A <span class="heart">☕</span> would make my day.</p></div>
+          <p class="disclaimer" id="i-support-disclaimer" hidden></p>
+        </div>
+        <div class="kofi">
+          <div class="kofi-icon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/><path d="M16 10h2a3 3 0 0 1 0 6h-2"/><path d="M7 4v2M11 4v2"/></svg></div>
+          <p id="i-support-hint">Click below to visit the support page</p>
+          <a class="btn btn-primary kofi-btn" href="https://ko-fi.com/annmax?ref=vkt-veil-mate" target="_blank" rel="noopener"><span id="i-support-btn-label">Support My Work</span></a>
+          <p class="kofi-note">Ko-fi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="icons/icon128.png" alt="" width="30" height="30">
+      <div>VeilMate<span class="copy" id="i-footer-copy">© 2026 VeilMate</span></div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="https://annmax1983.com/extensions.html" target="_blank" rel="noopener" id="i-footer-more">More extensions</a>
+      <a href="privacy-policy.html" id="i-footer-privacy">Privacy</a>
+      <a href="https://github.com/annmax1983/vkt-veil-mate" target="_blank" rel="noopener" id="i-footer-github">GitHub</a>
+      <a href="https://annmax1983.com/extensions/veilmate" target="_blank" rel="noopener" id="i-footer-site">Website</a>
+      <a href="mailto:support@annmax1983.com">support@annmax1983.com</a>
+    </nav>
+  </div>
+</footer>
+<script>
+const MODEL = {
+  "name": "VeilMate",
+  "icon": "icons/icon128.png",
+  "github": "https://github.com/annmax1983/vkt-veil-mate",
+  "site": "https://annmax1983.com/extensions/veilmate",
+  "support": "https://ko-fi.com/annmax?ref=vkt-veil-mate",
+  "langs": {
+    "en": {
+      "tagline": "Cover every tab in one click · No reloads · Nothing lost",
+      "intro": "VeilMate throws a blanket over every tab the moment you step away, then hands them back exactly as they were: same scroll position, same half-typed message, same paused video. Unlock with a password or your fingerprint. Nothing reloads, and nothing is uploaded.",
+      "why": [
+        "A closed shadow-DOM overlay is drawn over each page, so unlocking removes one layer instead of reloading the tab.",
+        "The toolbar button covers every window at once, and VeilMate registers no keyboard shortcut at all, so it never competes for your keys.",
+        "Covered pages swallow clicks, scrolling, typing and wheel events, so nothing behind the overlay reacts.",
+        "New tabs, new windows including private ones, and addresses typed while locked are all caught and sent to the lock screen.",
+        "The lock lives in local storage, so it is still there after a browser restart until you unlock it.",
+        "Passwords are derived with PBKDF2-SHA256 at 310,000 iterations and never leave the device.",
+        "Idle auto-lock covers the browser after ten minutes without input, and five wrong passwords put the lock screen in a thirty-second cooldown.",
+        "The lock screen shows a large clock, so you can read the time without revealing what you were working on.",
+        "Six interface languages: English, 简体中文, 日本語, Deutsch, Español, Français."
+      ],
+      "plan": {
+        "free": "One-click lock, the lossless overlay, password unlock, a lock that survives a browser restart, idle auto-lock, a ten-domain exempt list, the new-tab and address-bar trap, the large clock, brute-force cooldown and six languages.",
+        "premium": "Targeted lock that covers only the domains you list, biometric unlock with Windows Hello or Touch ID, focus-loss lock, system-lock link, lock at browser start, the privacy curtain, the lock activity log, wallpaper and a custom lock-screen message, and cross-device sync including the domain list.",
+        "note": "No account and no licence are needed to lock your browser. Pro is optional."
+      },
+      "thankTitle": "💌 A Note to You",
+      "thank": [
+        "Thank you for using VeilMate. I built it because every lock extension I tried either reloaded my tabs or handed me a lock I could walk around.",
+        "VeilMate hides your tabs from people walking past. It is not encryption, and the settings page says so in plain words.",
+        "If it helps you, that is already the best reward. A ☕ would make my day."
+      ],
+      "disclaimer": "",
+      "ctaHint": "Click below to visit the support page",
+      "btnText": "Support My Work",
+      "ui": {
+        "navFeatures": "Features",
+        "navPlans": "Free & Pro",
+        "navPrivacy": "Privacy",
+        "navSupport": "Support",
+        "eyebrow": "Chrome & Edge extension",
+        "badgeFree": "Free + Pro",
+        "badgeLocal": "Runs locally",
+        "badgeNoTrack": "Nothing uploaded",
+        "badgeBrowsers": "Chrome & Edge",
+        "ctaGet": "Get the extension",
+        "ctaPrivacy": "Privacy policy",
+        "ctaSource": "View source",
+        "featuresTitle": "Everything it does",
+        "featuresLead": "The core features at a glance.",
+        "moreTitle": "Also included",
+        "freeLabel": "Free",
+        "premiumLabel": "Pro",
+        "planTitle": "Free vs Pro",
+        "planLead": "The free tier is a complete lock, not a trial. Pro is optional.",
+        "privacyTitle": "Private by design",
+        "privacyLead": "Your tabs stay on your device. No screenshots, no page content, no browsing history leaves the browser. Read exactly what is stored and when the extension touches the network.",
+        "privacyPoints": ["Runs locally", "No account", "Licence optional"],
+        "privacyCta": "Read the privacy policy",
+        "supportEyebrow": "Support the developer",
+        "supportHint": "Click below to visit the support page",
+        "footerMore": "More extensions",
+        "footerPrivacy": "Privacy",
+        "footerGithub": "GitHub",
+        "footerSite": "Website"
+      }
+    },
+    "zh": {
+      "tagline": "一键遮住所有标签页 · 不刷新 · 不丢内容",
+      "intro": "离开座位的一瞬间，VeilMate 把所有标签页一起盖住，回来时原样交还：滚动位置、写了一半的消息、暂停的视频，全都还在。用密码或指纹解锁，页面不刷新，什么也不上传。",
+      "why": [
+        "遮罩是封闭的 shadow DOM 覆盖层，解锁只是移除一层，标签页从不重新加载。",
+        "工具栏按钮一次盖住所有窗口，而且不注册任何键盘快捷键，不跟你的按键抢。",
+        "被遮住的页面会拦截点击、滚动、输入和滚轮，遮罩背后什么都不会响应。",
+        "锁定期间新建的标签页、新窗口（包括无痕窗口）、手动输入的网址都会被拦到锁屏页。",
+        "锁定状态存在本地，浏览器重启后依然有效，直到你亲自解锁。",
+        "密码用 PBKDF2-SHA256 迭代 31 万次派生，永远不会离开这台设备。",
+        "十分钟无操作自动上锁；连续输错五次，锁屏页进入三十秒冷却。",
+        "锁屏页上有大字号时钟，不用露出正在做的事也能看时间。",
+        "六种界面语言：English、简体中文、日本語、Deutsch、Español、Français。"
+      ],
+      "plan": {
+        "free": "一键锁定、无损遮罩、密码解锁、重启后仍然锁定、空闲自动锁、十个域名的豁免名单、新标签页与地址栏拦截、大时钟、暴力破解冷却、六种语言。",
+        "premium": "定向锁定（只遮你列出的域名）、Windows Hello / Touch ID 生物识别解锁、失焦自动锁、系统锁联动、启动即锁、防窥幕、锁定记录、壁纸与自定义提示语，以及包含域名列表的跨设备同步。",
+        "note": "锁定浏览器不需要账号，也不需要授权。Pro 完全可选。"
+      },
+      "thankTitle": "💌 想对你说",
+      "thank": [
+        "谢谢你使用 VeilMate。我做它，是因为试过的锁定插件要么会刷新标签页，要么给的是一把绕得过去的锁。",
+        "VeilMate 挡住的是路过的人，它不是加密，设置页里也把这一点写得很直白。",
+        "如果它帮到了你，那已经是最好的回报。能请我喝杯咖啡 ☕ 就更好了。"
+      ],
+      "disclaimer": "",
+      "ctaHint": "点击下方按钮，跳转到支持页面",
+      "btnText": "支持我的工作",
+      "ui": {
+        "navFeatures": "功能",
+        "navPlans": "免费与 Pro",
+        "navPrivacy": "隐私",
+        "navSupport": "支持",
+        "eyebrow": "Chrome 与 Edge 扩展",
+        "badgeFree": "免费 + Pro",
+        "badgeLocal": "本地运行",
+        "badgeNoTrack": "不上传任何内容",
+        "badgeBrowsers": "Chrome 与 Edge",
+        "ctaGet": "获取扩展",
+        "ctaPrivacy": "隐私政策",
+        "ctaSource": "查看源码",
+        "featuresTitle": "全部功能",
+        "featuresLead": "核心功能一览。",
+        "moreTitle": "还包括",
+        "freeLabel": "免费版",
+        "premiumLabel": "Pro",
+        "planTitle": "免费版与 Pro",
+        "planLead": "免费版就是完整的锁，不是试用版。Pro 完全可选。",
+        "privacyTitle": "隐私优先",
+        "privacyLead": "标签页留在你的设备上。不截图、不上传页面内容、不记录浏览历史。具体存了什么、什么时候联网，都写在隐私政策里。",
+        "privacyPoints": ["本地运行", "无需账号", "授权可选"],
+        "privacyCta": "阅读隐私政策",
+        "supportEyebrow": "支持开发者",
+        "supportHint": "点击下方按钮，跳转到支持页面",
+        "footerMore": "更多扩展",
+        "footerPrivacy": "隐私",
+        "footerGithub": "GitHub",
+        "footerSite": "官网"
+      }
+    },
+    "ja": {
+      "tagline": "ワンクリックですべてのタブを覆う · 再読み込みなし · 失うものなし",
+      "intro": "席を外すほんの一瞬で、VeilMate がすべてのタブを覆います。戻ってきて解錠すれば、スクロール位置も書きかけのメッセージも一時停止した動画もそのまま。パスワードか指紋で解錠でき、ページは再読み込みされず、何もアップロードされません。",
+      "why": [
+        "閉じた shadow DOM のオーバーレイをページの上に描くので、解錠は 1 枚のレイヤーを外すだけ。タブは再読み込みされません。",
+        "ツールバーのボタンで全ウィンドウをまとめて覆います。キーボードショートカットは一切登録しないので、キー入力を奪いません。",
+        "覆われたページはクリック、スクロール、入力、ホイールをすべて止めるので、背面のページは反応しません。",
+        "ロック中に開いた新しいタブ、新しいウィンドウ（シークレットを含む）、入力した URL はロック画面に送られます。",
+        "ロック状態はローカルに保存され、ブラウザを再起動しても解錠するまで残ります。",
+        "パスワードは PBKDF2-SHA256 を 31 万回繰り返して派生し、端末の外には出ません。",
+        "10 分間操作がないと自動でロック。パスワードを 5 回間違えると 30 秒のクールダウンに入ります。",
+        "ロック画面には大きな時計。作業内容を見せずに時刻だけ確認できます。",
+        "6 つの表示言語：English、简体中文、日本語、Deutsch、Español、Français。"
+      ],
+      "plan": {
+        "free": "ワンクリックロック、無損失オーバーレイ、パスワード解錠、再起動後も残るロック、アイドル自動ロック、10 ドメインの除外リスト、新規タブとアドレスバーの捕捉、大きな時計、総当たり対策のクールダウン、6 言語。",
+        "premium": "指定ドメインだけを覆うターゲットロック、Windows Hello / Touch ID による生体認証、フォーカス喪失時のロック、システムロック連動、起動時ロック、プライバシーカーテン、ロック履歴、壁紙とカスタムメッセージ、ドメインリストを含む端末間同期。",
+        "note": "ブラウザをロックするのにアカウントもライセンスも不要です。Pro は任意です。"
+      },
+      "thankTitle": "💌 ありがとうございます",
+      "thank": [
+        "VeilMate をご利用いただきありがとうございます。試したロック拡張はどれもタブを再読み込みするか、簡単に回避できる鍵でした。",
+        "VeilMate が隠すのは通りすがりの人の目です。暗号化ではなく、設定画面にもそう明記しています。",
+        "お役に立てたならそれが一番の報酬です。コーヒー ☕ をごちそういただけると嬉しいです。"
+      ],
+      "disclaimer": "",
+      "ctaHint": "サポートページへ",
+      "btnText": "開発を支援する",
+      "ui": {
+        "navFeatures": "機能",
+        "navPlans": "無料と Pro",
+        "navPrivacy": "プライバシー",
+        "navSupport": "サポート",
+        "eyebrow": "Chrome & Edge 拡張機能",
+        "badgeFree": "無料 + Pro",
+        "badgeLocal": "端末上で動作",
+        "badgeNoTrack": "何もアップロードしない",
+        "badgeBrowsers": "Chrome & Edge",
+        "ctaGet": "拡張機能を入手",
+        "ctaPrivacy": "プライバシーポリシー",
+        "ctaSource": "ソースを見る",
+        "featuresTitle": "すべての機能",
+        "featuresLead": "主な機能を一覧で。",
+        "moreTitle": "その他の機能",
+        "freeLabel": "無料版",
+        "premiumLabel": "Pro",
+        "planTitle": "無料版と Pro",
+        "planLead": "無料版は試用版ではなく、完成したロックです。Pro は任意です。",
+        "privacyTitle": "プライバシー優先",
+        "privacyLead": "タブは端末の外に出ません。スクリーンショットもページ内容も閲覧履歴も送信しません。何を保存し、いつ通信するかはポリシーに記載しています。",
+        "privacyPoints": ["端末内で処理", "アカウント不要", "ライセンスは任意"],
+        "privacyCta": "プライバシーポリシーを読む",
+        "supportEyebrow": "開発者を支援",
+        "supportHint": "サポートページへ",
+        "footerMore": "他の拡張機能",
+        "footerPrivacy": "プライバシー",
+        "footerGithub": "GitHub",
+        "footerSite": "公式サイト"
+      }
+    },
+    "de": {
+      "tagline": "Alle Tabs mit einem Klick abdecken · Kein Neuladen · Nichts geht verloren",
+      "intro": "VeilMate legt im Moment des Weggehens eine Decke über alle Tabs und gibt sie genau so zurück, wie sie waren: gleiche Scrollposition, halb getippte Nachricht, pausiertes Video. Entsperren per Passwort oder Fingerabdruck. Nichts lädt neu, nichts wird hochgeladen.",
+      "why": [
+        "Ein geschlossenes Shadow-DOM-Overlay liegt über jeder Seite – Entsperren entfernt eine Ebene, statt den Tab neu zu laden.",
+        "Der Toolbar-Knopf deckt alle Fenster gleichzeitig ab, und VeilMate registriert kein einziges Tastaturkürzel.",
+        "Abgedeckte Seiten schlucken Klicks, Scrollen, Tippen und Mausrad-Ereignisse – dahinter reagiert nichts.",
+        "Neue Tabs, neue Fenster inklusive Inkognito und eingetippte Adressen landen im Sperrbildschirm.",
+        "Die Sperre liegt im lokalen Speicher und überlebt einen Browser-Neustart, bis du selbst entsperrst.",
+        "Passwörter werden mit PBKDF2-SHA256 über 310.000 Runden abgeleitet und verlassen das Gerät nie.",
+        "Nach zehn Minuten ohne Eingabe sperrt sich der Browser; fünf Fehlversuche lösen eine 30-Sekunden-Pause aus.",
+        "Der Sperrbildschirm zeigt eine große Uhr – Uhrzeit lesen, ohne den Bildschirminhalt zu zeigen.",
+        "Sechs Sprachen: English, 简体中文, 日本語, Deutsch, Español, Français."
+      ],
+      "plan": {
+        "free": "Ein-Klick-Sperre, verlustfreies Overlay, Passwort-Entsperrung, Sperre über Neustarts hinweg, Leerlauf-Autosperre, Ausnahmeliste mit zehn Domains, Abfangen von neuen Tabs und Adressleiste, große Uhr, Fehlversuch-Pause und sechs Sprachen.",
+        "premium": "Gezielte Sperre nur für gewählte Domains, biometrisches Entsperren mit Windows Hello oder Touch ID, Sperre bei Fokusverlust, Kopplung an die System-Sperre, Sperre beim Browserstart, Privacy-Curtain, Sperrprotokoll, Hintergrundbild und eigene Meldung sowie geräteübergreifende Synchronisierung inklusive Domainliste.",
+        "note": "Zum Sperren des Browsers braucht es weder Konto noch Lizenz. Pro ist optional."
+      },
+      "thankTitle": "💌 Danke",
+      "thank": [
+        "Danke, dass du VeilMate nutzt. Ich habe es gebaut, weil jede getestete Sperr-Erweiterung entweder Tabs neu geladen oder eine Sperre geliefert hat, die man umgehen kann.",
+        "VeilMate verdeckt Tabs vor Leuten, die vorbeigehen. Es ist keine Verschlüsselung – das steht auch so in den Einstellungen.",
+        "Wenn es dir hilft, ist das schon die beste Belohnung. Über einen Kaffee ☕ freue ich mich."
+      ],
+      "disclaimer": "",
+      "ctaHint": "Zur Support-Seite",
+      "btnText": "Projekt unterstützen",
+      "ui": {
+        "navFeatures": "Funktionen",
+        "navPlans": "Free & Pro",
+        "navPrivacy": "Datenschutz",
+        "navSupport": "Support",
+        "eyebrow": "Chrome- und Edge-Erweiterung",
+        "badgeFree": "Free + Pro",
+        "badgeLocal": "Läuft lokal",
+        "badgeNoTrack": "Nichts wird hochgeladen",
+        "badgeBrowsers": "Chrome & Edge",
+        "ctaGet": "Erweiterung holen",
+        "ctaPrivacy": "Datenschutzerklärung",
+        "ctaSource": "Quellcode ansehen",
+        "featuresTitle": "Alle Funktionen",
+        "featuresLead": "Die wichtigsten Funktionen im Überblick.",
+        "moreTitle": "Außerdem",
+        "freeLabel": "Free",
+        "premiumLabel": "Pro",
+        "planTitle": "Free vs. Pro",
+        "planLead": "Die kostenlose Version ist eine vollständige Sperre, keine Testversion. Pro ist optional.",
+        "privacyTitle": "Privat by Design",
+        "privacyLead": "Deine Tabs bleiben auf deinem Gerät. Keine Screenshots, keine Seiteninhalte, kein Verlauf verlassen den Browser. Lies genau, was gespeichert wird und wann die Erweiterung das Netz nutzt.",
+        "privacyPoints": ["Lokale Verarbeitung", "Kein Konto", "Lizenz optional"],
+        "privacyCta": "Datenschutzerklärung lesen",
+        "supportEyebrow": "Unterstütze die Entwicklung",
+        "supportHint": "Zur Support-Seite",
+        "footerMore": "Weitere Erweiterungen",
+        "footerPrivacy": "Datenschutz",
+        "footerGithub": "GitHub",
+        "footerSite": "Website"
+      }
+    },
+    "es": {
+      "tagline": "Cubre todas las pestañas con un clic · Sin recargas · Sin perder nada",
+      "intro": "VeilMate echa una manta sobre todas las pestañas en el momento en que te alejas y las devuelve tal cual: la misma posición de desplazamiento, el mensaje a medio escribir, el vídeo en pausa. Desbloquea con contraseña o huella. Nada se recarga y nada se sube.",
+      "why": [
+        "Una capa shadow DOM cerrada se dibuja sobre cada página, así que desbloquear quita una capa en lugar de recargar la pestaña.",
+        "El botón de la barra cubre todas las ventanas a la vez y VeilMate no registra ningún atajo de teclado.",
+        "Las páginas cubiertas bloquean clics, desplazamiento, escritura y rueda, así que detrás no reacciona nada.",
+        "Las pestañas nuevas, las ventanas nuevas incluidas las privadas y las direcciones escritas mientras está bloqueado acaban en la pantalla de bloqueo.",
+        "El bloqueo vive en el almacenamiento local y sobrevive a un reinicio del navegador hasta que lo desbloqueas.",
+        "Las contraseñas se derivan con PBKDF2-SHA256 y 310.000 iteraciones, y nunca salen del dispositivo.",
+        "Tras diez minutos sin actividad se bloquea solo; cinco intentos fallidos activan una pausa de treinta segundos.",
+        "La pantalla de bloqueo muestra un reloj grande: puedes mirar la hora sin enseñar en qué trabajabas.",
+        "Seis idiomas: English, 简体中文, 日本語, Deutsch, Español, Français."
+      ],
+      "plan": {
+        "free": "Bloqueo con un clic, capa sin pérdidas, desbloqueo con contraseña, bloqueo que sobrevive al reinicio, bloqueo automático por inactividad, lista de exenciones de diez dominios, captura de pestañas nuevas y de la barra de direcciones, reloj grande, pausa anti fuerza bruta y seis idiomas.",
+        "premium": "Bloqueo dirigido solo a los dominios que elijas, desbloqueo biométrico con Windows Hello o Touch ID, bloqueo al perder el foco, vínculo con el bloqueo del sistema, bloqueo al iniciar el navegador, cortina de privacidad, registro de bloqueos, fondo de pantalla y mensaje propio, y sincronización entre dispositivos incluida la lista de dominios.",
+        "note": "No hace falta cuenta ni licencia para bloquear el navegador. Pro es opcional."
+      },
+      "thankTitle": "💌 Gracias",
+      "thank": [
+        "Gracias por usar VeilMate. Lo hice porque todas las extensiones de bloqueo que probé recargaban las pestañas o daban un bloqueo fácil de esquivar.",
+        "VeilMate oculta tus pestañas de quien pasa por detrás. No es cifrado, y la página de ajustes lo dice claramente.",
+        "Si te ayuda, ya es la mejor recompensa. Un café ☕ me alegraría el día."
+      ],
+      "disclaimer": "",
+      "ctaHint": "Ir a la página de apoyo",
+      "btnText": "Apoyar el proyecto",
+      "ui": {
+        "navFeatures": "Funciones",
+        "navPlans": "Gratis y Pro",
+        "navPrivacy": "Privacidad",
+        "navSupport": "Apoyo",
+        "eyebrow": "Extensión para Chrome y Edge",
+        "badgeFree": "Gratis + Pro",
+        "badgeLocal": "Se ejecuta en local",
+        "badgeNoTrack": "Nada se sube",
+        "badgeBrowsers": "Chrome y Edge",
+        "ctaGet": "Obtener la extensión",
+        "ctaPrivacy": "Política de privacidad",
+        "ctaSource": "Ver el código",
+        "featuresTitle": "Todo lo que hace",
+        "featuresLead": "Las funciones principales de un vistazo.",
+        "moreTitle": "También incluye",
+        "freeLabel": "Gratis",
+        "premiumLabel": "Pro",
+        "planTitle": "Gratis vs Pro",
+        "planLead": "La versión gratuita es un bloqueo completo, no una prueba. Pro es opcional.",
+        "privacyTitle": "Privacidad por diseño",
+        "privacyLead": "Tus pestañas se quedan en tu dispositivo. Ni capturas, ni contenido de páginas, ni historial salen del navegador. Consulta qué se guarda y cuándo usa la red la extensión.",
+        "privacyPoints": ["Procesamiento local", "Sin cuenta", "Licencia opcional"],
+        "privacyCta": "Leer la política de privacidad",
+        "supportEyebrow": "Apoya al desarrollador",
+        "supportHint": "Ir a la página de apoyo",
+        "footerMore": "Más extensiones",
+        "footerPrivacy": "Privacidad",
+        "footerGithub": "GitHub",
+        "footerSite": "Sitio web"
+      }
+    },
+    "fr": {
+      "tagline": "Couvrez tous les onglets en un clic · Sans rechargement · Rien de perdu",
+      "intro": "VeilMate jette une couverture sur tous les onglets à l'instant où vous vous éloignez, puis vous les rend exactement comme ils étaient : même position de défilement, message à moitié écrit, vidéo en pause. Déverrouillez par mot de passe ou empreinte. Rien ne se recharge, rien n'est envoyé.",
+      "why": [
+        "Une surcouche shadow DOM fermée est dessinée sur chaque page : déverrouiller retire une couche au lieu de recharger l'onglet.",
+        "Le bouton de la barre d'outils couvre toutes les fenêtres d'un coup, et VeilMate n'enregistre aucun raccourci clavier.",
+        "Les pages couvertes bloquent clics, défilement, saisie et molette : derrière, rien ne réagit.",
+        "Les nouveaux onglets, les nouvelles fenêtres y compris privées et les adresses saisies pendant le verrouillage arrivent sur l'écran de verrouillage.",
+        "Le verrouillage vit dans le stockage local et survit à un redémarrage du navigateur jusqu'à ce que vous le leviez.",
+        "Les mots de passe sont dérivés avec PBKDF2-SHA256 sur 310 000 itérations et ne quittent jamais l'appareil.",
+        "Après dix minutes sans activité, le navigateur se verrouille ; cinq erreurs déclenchent une pause de trente secondes.",
+        "L'écran de verrouillage affiche une grande horloge : lire l'heure sans montrer sur quoi vous travailliez.",
+        "Six langues : English, 简体中文, 日本語, Deutsch, Español, Français."
+      ],
+      "plan": {
+        "free": "Verrouillage en un clic, surcouche sans perte, déverrouillage par mot de passe, verrou qui survit au redémarrage, verrouillage automatique en cas d'inactivité, liste d'exemptions de dix domaines, interception des nouveaux onglets et de la barre d'adresse, grande horloge, pause anti force brute et six langues.",
+        "premium": "Verrouillage ciblé sur les domaines choisis, déverrouillage biométrique avec Windows Hello ou Touch ID, verrouillage à la perte de focus, lien avec le verrouillage système, verrouillage au démarrage du navigateur, rideau de confidentialité, journal des verrouillages, fond d'écran et message personnalisé, et synchronisation entre appareils avec la liste de domaines.",
+        "note": "Aucun compte ni licence n'est nécessaire pour verrouiller le navigateur. Pro est facultatif."
+      },
+      "thankTitle": "💌 Merci",
+      "thank": [
+        "Merci d'utiliser VeilMate. Je l'ai écrit parce que toutes les extensions de verrouillage que j'ai essayées rechargeaient mes onglets ou donnaient un verrou contournable.",
+        "VeilMate cache vos onglets de ceux qui passent derrière vous. Ce n'est pas du chiffrement, et la page de réglages le dit clairement.",
+        "S'il vous aide, c'est déjà la meilleure récompense. Un café ☕ me ferait très plaisir."
+      ],
+      "disclaimer": "",
+      "ctaHint": "Page de soutien",
+      "btnText": "Soutenir le projet",
+      "ui": {
+        "navFeatures": "Fonctionnalités",
+        "navPlans": "Gratuit et Pro",
+        "navPrivacy": "Confidentialité",
+        "navSupport": "Soutien",
+        "eyebrow": "Extension Chrome et Edge",
+        "badgeFree": "Gratuit + Pro",
+        "badgeLocal": "Fonctionne en local",
+        "badgeNoTrack": "Rien n'est envoyé",
+        "badgeBrowsers": "Chrome et Edge",
+        "ctaGet": "Obtenir l’extension",
+        "ctaPrivacy": "Politique de confidentialité",
+        "ctaSource": "Voir le code",
+        "featuresTitle": "Toutes les fonctionnalités",
+        "featuresLead": "Les fonctions essentielles en un coup d'œil.",
+        "moreTitle": "Également inclus",
+        "freeLabel": "Gratuit",
+        "premiumLabel": "Pro",
+        "planTitle": "Gratuit vs Pro",
+        "planLead": "La version gratuite est un verrou complet, pas une version d'essai. Pro est facultatif.",
+        "privacyTitle": "Confidentiel par conception",
+        "privacyLead": "Vos onglets restent sur votre appareil. Ni captures, ni contenu de pages, ni historique ne quittent le navigateur. Découvrez ce qui est stocké et quand l'extension utilise le réseau.",
+        "privacyPoints": ["Traitement local", "Sans compte", "Licence facultative"],
+        "privacyCta": "Lire la politique de confidentialité",
+        "supportEyebrow": "Soutenir le développeur",
+        "supportHint": "Page de soutien",
+        "footerMore": "Plus d'extensions",
+        "footerPrivacy": "Confidentialité",
+        "footerGithub": "GitHub",
+        "footerSite": "Site web"
+      }
+    }
+  }
+};
+const LANG_KEY = "vkt-veil-mate-lang";
+(function () {
+  "use strict";
+
+  var select = document.getElementById("i-lang");
+
+  function esc(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value == null ? "" : value;
+  }
+
+  function detect() {
+    var codes = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+    for (var i = 0; i < codes.length; i++) {
+      var code = String(codes[i] || "").toLowerCase();
+      if (code.indexOf("zh") === 0) return "zh";
+      if (code.indexOf("ja") === 0) return "ja";
+      if (code.indexOf("de") === 0) return "de";
+      if (code.indexOf("es") === 0) return "es";
+      if (code.indexOf("fr") === 0) return "fr";
+      if (code.indexOf("en") === 0) return "en";
+    }
+    return "en";
+  }
+
+  var iconCheck = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  var iconLocal = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12h8M12 8v8"/></svg>';
+  var iconEye = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 9 4.5 9 7a11.7 11.7 0 0 1-2.3 3.6"/><path d="M6.2 6.2C4.2 7.7 3 9.7 3 12c0 2.5 4 7 9 7a11 11 0 0 0 4.2-.8"/></svg>';
+  var iconGlobe = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg>';
+
+  function render(lang) {
+    var data = MODEL.langs[lang];
+    if (!data) return;
+    var u = data.ui;
+
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+
+    var parts = String(data.tagline || "").split("·").map(function (part) { return part.trim(); }).filter(Boolean);
+    var headline = parts.length ? parts.shift() : MODEL.name;
+
+    document.title = MODEL.name + " — " + headline;
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", data.intro.slice(0, 158));
+
+    setText("i-nav-features", u.navFeatures);
+    setText("i-nav-plans", u.navPlans);
+    setText("i-nav-privacy", u.navPrivacy);
+    setText("i-nav-support", u.navSupport);
+    setText("i-eyebrow", u.eyebrow);
+    setText("i-h1", headline);
+    setText("i-intro", data.intro);
+    setText("i-get-label", u.ctaGet);
+    setText("i-privacy-label", u.ctaPrivacy);
+    setText("i-source-label", u.ctaSource);
+    setText("i-micro", u.badgeFree + " · " + u.badgeBrowsers);
+
+    var tagline = document.getElementById("i-tagline");
+    if (tagline) {
+      tagline.innerHTML = parts.map(function (part) { return "<span>" + esc(part) + "</span>"; }).join("");
+    }
+
+    var badges = document.getElementById("i-badges");
+    if (badges) {
+      badges.innerHTML = [
+        [iconLocal, u.badgeLocal],
+        [iconEye, u.badgeNoTrack],
+        [iconGlobe, u.badgeBrowsers]
+      ].map(function (item) {
+        return '<span class="badge">' + item[0] + esc(item[1]) + "</span>";
+      }).join("");
+    }
+
+    setText("i-app-name", MODEL.name);
+    setText("i-app-sub", u.badgeFree);
+    setText("i-app-browsers", u.badgeBrowsers);
+    var appPoints = document.getElementById("i-app-points");
+    if (appPoints) {
+      appPoints.innerHTML = u.privacyPoints.map(function (point) {
+        return "<div>" + iconCheck + "<span>" + esc(point) + "</span></div>";
+      }).join("");
+    }
+
+    setText("i-feat-title", u.featuresTitle);
+    setText("i-feat-lead", u.featuresLead);
+    setText("i-more-title", u.moreTitle);
+
+    var primary = data.why.slice(0, 6);
+    var extra = data.why.slice(6);
+    var featureGrid = document.getElementById("i-features");
+    if (featureGrid) {
+      featureGrid.innerHTML = primary.map(function (text, index) {
+        return '<article class="feature"><span class="num">' + String(index + 1).padStart(2, "0") + "</span><p>" + esc(text) + "</p></article>";
+      }).join("");
+    }
+
+    var morePanel = document.getElementById("i-more-panel");
+    var moreList = document.getElementById("i-more");
+    if (morePanel && moreList) {
+      if (extra.length) {
+        morePanel.hidden = false;
+        moreList.innerHTML = extra.map(function (text) { return "<li>" + esc(text) + "</li>"; }).join("");
+      } else {
+        morePanel.hidden = true;
+      }
+    }
+
+    setText("i-plan-title", u.planTitle);
+    setText("i-plan-lead", u.planLead);
+    var plans = document.getElementById("i-plans");
+    if (plans) {
+      plans.innerHTML =
+        '<article class="plan"><div class="plan-top"><span class="plan-mark free">' + iconCheck + "</span><h3>" + esc(u.freeLabel) + "</h3></div><p>" + esc(data.plan.free) + "</p></article>" +
+        '<article class="plan premium"><div class="plan-top"><span class="plan-mark premium">' + iconCheck + "</span><h3>" + esc(u.premiumLabel) + "</h3></div><p>" + esc(data.plan.premium) + "</p></article>";
+    }
+
+    var planNote = document.getElementById("i-plan-note");
+    if (planNote) {
+      planNote.hidden = !data.plan.note;
+      planNote.textContent = data.plan.note || "";
+    }
+
+    setText("i-priv-title", u.privacyTitle);
+    setText("i-priv-lead", u.privacyLead);
+    setText("i-priv-cta", u.privacyCta);
+    var points = document.getElementById("i-priv-points");
+    if (points) {
+      points.innerHTML = u.privacyPoints.map(function (point) {
+        return '<span class="point">' + iconCheck + esc(point) + "</span>";
+      }).join("");
+    }
+
+    setText("i-support-eyebrow", u.supportEyebrow);
+    setText("i-support-title", data.thankTitle);
+    var copy = document.getElementById("i-support-copy");
+    if (copy) {
+      copy.innerHTML = data.thank.map(function (paragraph) { return "<p>" + paragraph + "</p>"; }).join("");
+    }
+    var hint = document.getElementById("i-support-hint");
+    if (hint) {
+      hint.hidden = !data.ctaHint;
+      hint.textContent = data.ctaHint || "";
+    }
+    setText("i-support-btn-label", data.btnText || "Support My Work");
+    var disclaimer = document.getElementById("i-support-disclaimer");
+    if (disclaimer) {
+      disclaimer.hidden = !data.disclaimer;
+      disclaimer.textContent = data.disclaimer || "";
+    }
+
+    setText("i-footer-more", u.footerMore);
+    setText("i-footer-privacy", u.footerPrivacy);
+    setText("i-footer-github", u.footerGithub);
+    setText("i-footer-site", u.footerSite);
+    setText("i-footer-copy", "© 2026 " + MODEL.name);
+  }
+
+  function storedLang() {
+    try { return localStorage.getItem(LANG_KEY); } catch (error) { return null; }
+  }
+
+  function remember(lang) {
+    try { localStorage.setItem(LANG_KEY, lang); } catch (error) { /* storage can be blocked */ }
+  }
+
+  if (select) {
+    var saved = storedLang();
+    var initial = saved && MODEL.langs[saved] ? saved : detect();
+    if (!MODEL.langs[initial]) initial = "en";
+    select.value = initial;
+    if (initial !== "en") render(initial);
+    select.addEventListener("change", function () {
+      remember(select.value);
+      render(select.value);
+    });
+  }
+})();
+</script>
+</body>
+</html>
