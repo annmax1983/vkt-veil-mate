@@ -53,7 +53,7 @@ VeilMate takes the opposite position:
 | Feature | Detail |
 |---|---|
 | Targeted lock | Switch the domain list to "cover only…" — lock the intranet, leave everything else readable. The free plan is capped at 10 domains and always runs "cover everything except…" |
-| Biometric unlock | Windows Hello / Touch ID via WebAuthn, password always as fallback |
+| Biometric unlock | Windows Hello / Touch ID via WebAuthn. A convenience path, not a stronger boundary — the assertion is verified in the lock page, so its trust level is the same as being at the keyboard; the password is always the fallback |
 | Focus-loss lock | Lock a few seconds after you switch to another app |
 | System-lock link | Follow the operating system's screen lock |
 | Lock at browser start | Ask for the password the first time the browser opens |
