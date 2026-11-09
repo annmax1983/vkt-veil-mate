@@ -71,8 +71,6 @@ VKT VeilMate は逆の立場を取ります。
 
 ## プレビュー
 
-> 📸 ストア用の素材とスクリーンショットは [`screenshots/`](../screenshots/) にあります。1280×800 のスクリーンショット 6 枚に加え、1400×560 と 440×280 のプロモーション画像。
-
 | スクリーンショット | 内容 |
 |---|---|
 | [`01-lock-all-tabs.png`](../screenshots/01-lock-all-tabs.png) | ワンクリックで全ウィンドウの全タブを覆う |
@@ -214,7 +212,9 @@ VKT VeilMate は逆の立場を取ります。
 
 ## ソースコードについて
 
-> ⚠️ **このリポジトリは開発とリリース用パッケージングのために維持されています。** ソースコードはプロプライエタリであり、再配布・再パッケージは許可されません。拡張機能は公式のブラウザストア（Chrome ウェブストア、Microsoft Edge アドオン、Firefox アドオン (AMO)）で配布され、エンドユーザー向けのオフラインインストール版は提供されません。
+> ⚠️ **本リポジトリはプロジェクト紹介のみを目的としており、完全なソースコードは公開していません。** 拡張機能の利用説明・リリースノート・サポート情報のみを掲載しています。
+
+> 📥 **ダウンロードとインストールは公式ブラウザストアから：** Chrome ウェブストア · Microsoft Edge アドオン · Firefox アドオン（AMO）。本リポジトリからオフラインインストーラーを配布することはありません。
 
 ---
 
@@ -233,4 +233,4 @@ Copyright © 2026 VKT VeilMate. All rights reserved.
 
 VKT VeilMate が役に立ったら、開発者にコーヒーをおごっていただけると嬉しいです。
 
-**[👉 ライセンスを取得](https://annmax1983.com/extensions/veilmate)** · **[☕ コーヒーをおごる](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub のソース](https://github.com/annmax1983/vkt-veil-mate) · [公式サイト](https://annmax1983.com/)
+**[👉 ライセンスを取得](https://annmax1983.com/extensions/veilmate)** · **[☕ コーヒーをおごる](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub](https://github.com/annmax1983/vkt-veil-mate) · [公式サイト](https://annmax1983.com/)

@@ -71,8 +71,6 @@ VKT VeilMate prend la position inverse :
 
 ## Aperçu
 
-> 📸 Les visuels du magasin et les captures sont dans [`screenshots/`](../screenshots/) : six captures 1280×800, plus les visuels 1400×560 et 440×280.
-
 | Capture | Contenu |
 |---|---|
 | [`01-lock-all-tabs.png`](../screenshots/01-lock-all-tabs.png) | Un clic couvre tous les onglets de toutes les fenêtres |
@@ -215,7 +213,9 @@ Les content scripts s'exécutent sur `http://*/*` et `https://*/*` et ne font qu
 
 ## Avis sur le code source
 
-> ⚠️ **Ce dépôt sert au développement et à l'empaquetage des versions.** Le code est propriétaire et ne peut être redistribué ni réempaqueté. L'extension est distribuée via les magasins officiels de navigateurs (Chrome Web Store, Microsoft Edge Add-ons, Firefox Add-ons (AMO)) ; aucun paquet d'installation hors ligne n'est fourni aux utilisateurs finaux.
+> ⚠️ **Ce dépôt sert uniquement à la présentation du projet — le code source complet n'y est pas publié.** Il ne contient que la documentation d'utilisation, les notes de version et les informations d'assistance de l'extension.
+
+> 📥 **Téléchargement et installation uniquement depuis les boutiques officielles :** Chrome Web Store · Microsoft Edge Add-ons · Modules complémentaires Firefox (AMO). Aucun installateur hors ligne n'est distribué ici.
 
 ---
 

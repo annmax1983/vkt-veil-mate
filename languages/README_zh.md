@@ -71,8 +71,6 @@ VKT VeilMate 的选择正好相反：
 
 ## 预览
 
-> 📸 商店素材与截图都在 [`screenshots/`](../screenshots/) 里 —— 六张 1280×800 截图，外加 1400×560 与 440×280 两张宣传图。
-
 | 截图 | 内容 |
 |---|---|
 | [`01-lock-all-tabs.png`](../screenshots/01-lock-all-tabs.png) | 一键盖住所有窗口的所有标签 |
@@ -214,7 +212,9 @@ VKT VeilMate 的选择正好相反：
 
 ## 源码说明
 
-> ⚠️ **本仓库用于开发与发布打包。** 源码为专有软件，不得再分发或重新打包。扩展通过官方浏览器商店（Chrome 应用商店、Microsoft Edge 加载项、Firefox 加载项（AMO））分发；不向最终用户提供离线安装包。
+> ⚠️ **本仓库仅用于项目展示，不发布完整源码。** 这里只有扩展的使用说明、更新日志与支持信息。
+
+> 📥 **请前往官方浏览器商店下载安装：** Chrome Web Store · Microsoft Edge Add-ons · Firefox 附加组件（AMO）。本仓库不提供离线安装包，也不向终端用户分发源码包。
 
 ---
 
@@ -233,4 +233,4 @@ Copyright © 2026 VKT VeilMate. 保留所有权利。
 
 如果 VKT VeilMate 对你有帮助，可以请开发者喝杯咖啡！
 
-**[👉 获取许可证](https://annmax1983.com/extensions/veilmate)** · **[☕ 请我喝咖啡](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub 源码](https://github.com/annmax1983/vkt-veil-mate) · [官网](https://annmax1983.com/)
+**[👉 获取许可证](https://annmax1983.com/extensions/veilmate)** · **[☕ 请我喝咖啡](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub](https://github.com/annmax1983/vkt-veil-mate) · [官网](https://annmax1983.com/)

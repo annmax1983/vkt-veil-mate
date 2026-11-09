@@ -71,8 +71,6 @@ VKT VeilMate nimmt die entgegengesetzte Haltung ein:
 
 ## Vorschau
 
-> 📸 Store-Material und Screenshots liegen in [`screenshots/`](../screenshots/) — sechs Aufnahmen in 1280×800 sowie Werbebilder in 1400×560 und 440×280.
-
 | Screenshot | Zeigt |
 |---|---|
 | [`01-lock-all-tabs.png`](../screenshots/01-lock-all-tabs.png) | Ein Klick deckt alle Tabs in allen Fenstern ab |
@@ -215,7 +213,9 @@ Content Scripts laufen auf `http://*/*` und `https://*/*` und tun genau eines: d
 
 ## Hinweis zum Quellcode
 
-> ⚠️ **Dieses Repository dient der Entwicklung und dem Verpacken von Releases.** Der Quellcode ist proprietär und darf nicht weiterverbreitet oder neu verpackt werden. Die Erweiterung wird über offizielle Browser-Stores (Chrome Web Store, Microsoft Edge Add-ons, Firefox Add-ons (AMO)) verteilt; Offline-Installationspakete werden Endnutzern nicht bereitgestellt.
+> ⚠️ **Dieses Repository dient ausschließlich der Projektpräsentation — der vollständige Quellcode wird hier nicht veröffentlicht.** Es enthält nur die Nutzungsdokumentation, die Release-Notizen und Support-Informationen zur Erweiterung.
+
+> 📥 **Installation ausschließlich über die offiziellen Browser-Stores:** Chrome Web Store · Microsoft Edge Add-ons · Firefox-Add-ons (AMO). Von hier werden keine Offline-Installer verteilt.
 
 ---
 
@@ -234,4 +234,4 @@ Diese Software ist proprietäre Closed-Source-Software. Ohne offizielle schriftl
 
 Wenn VKT VeilMate Ihnen hilft, spendieren Sie dem Entwickler doch einen Kaffee!
 
-**[👉 Lizenz erwerben](https://annmax1983.com/extensions/veilmate)** · **[☕ Kaffee spendieren](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [Quellcode auf GitHub](https://github.com/annmax1983/vkt-veil-mate) · [Offizielle Website](https://annmax1983.com/)
+**[👉 Lizenz erwerben](https://annmax1983.com/extensions/veilmate)** · **[☕ Kaffee spendieren](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub](https://github.com/annmax1983/vkt-veil-mate) · [Offizielle Website](https://annmax1983.com/)

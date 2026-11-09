@@ -71,8 +71,6 @@ VKT VeilMate adopta la posición contraria:
 
 ## Vista previa
 
-> 📸 El material de la tienda y las capturas están en [`screenshots/`](../screenshots/): seis capturas de 1280×800 más las imágenes promocionales de 1400×560 y 440×280.
-
 | Captura | Muestra |
 |---|---|
 | [`01-lock-all-tabs.png`](../screenshots/01-lock-all-tabs.png) | Una pulsación cubre todas las pestañas de todas las ventanas |
@@ -215,7 +213,13 @@ Los content scripts se ejecutan en `http://*/*` y `https://*/*` y hacen exactame
 
 ## Aviso sobre el código fuente
 
-> ⚠️ **Este repositorio se mantiene para el desarrollo y el empaquetado de versiones.** El código es propietario y no puede redistribuirse ni reempaquetarse. La extensión se distribuye a través de las tiendas oficiales de navegadores (Chrome Web Store, Microsoft Edge Add-ons, Firefox Add-ons (AMO)); no se ofrecen paquetes de instalación offline a los usuarios finales.
+---
+
+## Aviso sobre el código fuente
+
+> ⚠️ **Este repositorio es solo para presentar el proyecto: el código fuente completo no se publica aquí.** Solo contiene la documentación de uso, las notas de versión y la información de soporte de la extensión.
+
+> 📥 **Descárgala e instálala únicamente desde las tiendas oficiales de navegadores:** Chrome Web Store · Microsoft Edge Add-ons · Complementos de Firefox (AMO). Desde aquí no se distribuye ningún instalador sin conexión.
 
 ---
 
@@ -234,4 +238,4 @@ Este software es software propietario de código cerrado. Sin autorización ofic
 
 Si VKT VeilMate te resulta útil, invita al desarrollador a un café.
 
-**[👉 Obtener una licencia](https://annmax1983.com/extensions/veilmate)** · **[☕ Invítame a un café](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [Código en GitHub](https://github.com/annmax1983/vkt-veil-mate) · [Sitio oficial](https://annmax1983.com/)
+**[👉 Obtener una licencia](https://annmax1983.com/extensions/veilmate)** · **[☕ Invítame a un café](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub](https://github.com/annmax1983/vkt-veil-mate) · [Sitio oficial](https://annmax1983.com/)

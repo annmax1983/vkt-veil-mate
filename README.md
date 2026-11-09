@@ -106,8 +106,6 @@ This table is also on the settings page. It is the point of the product.
 
 ## Preview
 
-> 📸 Store artwork and screenshots are kept in [`screenshots/`](screenshots/) — six 1280×800 shots plus the 1400×560 and 440×280 promotional tiles.
-
 | Screenshot | Shows |
 |---|---|
 | [`01-lock-all-tabs.png`](screenshots/01-lock-all-tabs.png) | One click covers every tab in every window |
@@ -242,7 +240,9 @@ Content scripts run on `http://*/*` and `https://*/*` and do exactly one thing: 
 
 ## Source Code Notice
 
-> ⚠️ **This repository is maintained for development and release packaging.** The source code is proprietary and may not be redistributed or repackaged. The extension is distributed through official browser extension stores (Chrome Web Store, Microsoft Edge Add-ons, Firefox Add-ons (AMO)); no offline installation packages are distributed to end users.
+> ⚠️ **This repository is for project showcase only — the full source code is not published here.** It contains the user documentation, release notes and support information for the extension.
+
+> 📥 **Download and install only from the official browser stores:** Chrome Web Store · Microsoft Edge Add-ons · Firefox Add-ons (AMO). No offline installation package is distributed from this repository.
 
 ---
 
@@ -259,7 +259,7 @@ This software is closed-source proprietary software. Without official written au
 
 ## ❤️ Support
 
-**[👉 Get a licence key](https://annmax1983.com/extensions/veilmate)** · **[☕ Buy me a coffee](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [Source on GitHub](https://github.com/annmax1983/vkt-veil-mate) · [Official website](https://annmax1983.com/)
+**[👉 Get a licence key](https://annmax1983.com/extensions/veilmate)** · **[☕ Buy me a coffee](https://ko-fi.com/annmax?ref=vkt-veil-mate)** · [GitHub](https://github.com/annmax1983/vkt-veil-mate) · [Official website](https://annmax1983.com/)
 
 ---
 
